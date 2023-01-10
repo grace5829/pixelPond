@@ -3,14 +3,13 @@ import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import REACT_APP_AUTH_KEY from "../.env.local"
-
+import REACT_APP_AUTH_KEY from "./.env.local"
 
 
 const firebaseConfig = {
   apiKey: REACT_APP_AUTH_KEY,
   authDomain: "story-of-my-life-d0220.firebaseapp.com",
-  databaseURL:"gs://story-of-my-life-d0220.appspot.com",
+  // databaseURL:"gs://story-of-my-life-d0220.appspot.com",
   projectId: "story-of-my-life-d0220",
   storageBucket: "story-of-my-life-d0220.appspot.com",
   messagingSenderId: "877787444849",
