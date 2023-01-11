@@ -1,16 +1,18 @@
 // import logo from './assets/logo.svg';
-import "./assets/App.css";
+import "../assets/App.css";
 import { useState, useEffect } from "react";
-import { storage } from "./firebase-config";
+import { storage } from "../firebase-config";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
-function App() {
+
+function ImageUpload() {
   const [images, setImages] = useState(null);
   const [imageList, setImageList] = useState([]);
   const imageListRef = ref(storage, "images/");
 
   useEffect(() => {
-    listAll(imageListRef).then((res) => {
+    listAll(imageListRef)
+    .then((res) => {
       res.items.forEach((item) => {
         getDownloadURL(item).then((url) => {
           setImageList((prev) => [...prev, url]);
@@ -39,7 +41,7 @@ Object.values(images).forEach((image)=>{
     // }
     // uploadEach()
   };
-console.log("images:",images)
+console.log("images:",imageList)
   return (
     <div className="App">
       <h1>
@@ -61,4 +63,4 @@ console.log("images:",images)
   );
 }
 
-export default App;
+export default ImageUpload;
