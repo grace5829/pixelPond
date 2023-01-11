@@ -4,12 +4,15 @@ import './assets/index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import  { AppRoutes, Navbar } from './components/index';
+import { AuthContextProvider } from './components/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
+    <AuthContextProvider>
     <Navbar/>
     <AppRoutes />
+    </AuthContextProvider>
     </Router>
 
 );
