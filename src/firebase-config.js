@@ -7,7 +7,7 @@ import REACT_APP_AUTH_KEY from "./.env.local"
 
 
 const firebaseConfig = {
-  apiKey: "",
+  apiKey: "AIzaSyDMDAqtnf7dR0JysJV_ijEcE3bV5sZ-RPs",
     authDomain: "story-of-my-life-d0220.firebaseapp.com",
   // databaseURL:"gs://story-of-my-life-d0220.appspot.com",
   projectId: "story-of-my-life-d0220",
