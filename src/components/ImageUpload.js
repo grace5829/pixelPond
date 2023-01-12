@@ -24,30 +24,23 @@ function ImageUpload() {
 
   const handleUpload = () => {
     if (images == []) return;
-//     const uploadEach= () =>{
-// const arr= Array.from(images)
-// console.log("arr:",arr)
 Object.values(images).forEach((image)=>{
         console.log("image 0:",image)
         const imageRef = ref(storage, `images/${image.name + v4()}`);
         console.log("imageRef", imageRef);
         uploadBytes(imageRef, image).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url)=>{
-            
             setImageList((prev) => [...prev, url]);
           })
         });  
       })
-    // }
-    // uploadEach()
   };
-console.log("images:",imageList)
+
   return (
     <div className="App">
       <h1>
         Story of my life stolen moments Fotomates picture me now my photo stash
       </h1>
-      {/* the 0 is for 1 image. remove to uploaod multiple */}
       <input
         type="file"
         multiple
