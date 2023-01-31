@@ -16,7 +16,7 @@ function Navbar() {
 
   return (
     <nav>
-      <Link to="/uploadImages">Upload Images</Link>{" "}
+      {/* <Link to="/uploadImages">Upload Images</Link>{" "} */}
       <Link to="/photoFolders">Folders</Link>
       <Link to="/">Home</Link>
       {user ? (

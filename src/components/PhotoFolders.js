@@ -15,6 +15,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { v4 } from "uuid";
 function PhotoFolders() {
   const [folders, setFolders] = useState([]);
   const [newFolder, setNewFolder] = useState("");
@@ -26,9 +27,7 @@ let nameNewFolder= {folder: newFolder}
 
 
   const fetchAlbums = async () => {
-    const albumFolders = await getDocs(albums);
-    console.log(albumFolders.docs)
-  
+    const albumFolders = await getDocs(albums);  
     setFolders((prev)=> 
       albumFolders.docs.map((doc) => 
       ({ ...doc.data(), folder: doc.id })
@@ -37,14 +36,12 @@ let nameNewFolder= {folder: newFolder}
   };
 
 
-  console.log("albums", folders);
 
   const handleNewFolder=async ()=>{
         const newAlbum = await setDoc(doc(db,"albums", newFolder), {
         })
         setFolders((prev)=> [...prev, nameNewFolder])
   }
-  // console.log("albums", folders)
   return (
     <div>
 
@@ -53,9 +50,9 @@ let nameNewFolder= {folder: newFolder}
       {folders
         ? // folders.map((folder)=>console.log(folder))
           folders.map((folder) => (
-            <div className="folderArea">
+            <div className={`folderArea ${v4()}`} >
               <img className="folderImg" src={require("../images/folderpic.png")}/>
-            <Link to={`/${folder.folder}`}>
+            <Link key={folder.folder} to={`/albums/${folder.folder}`}>
             <div className="folderName">  
                 {folder.folder} 
               </div>

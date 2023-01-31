@@ -37,3 +37,31 @@ code {
   border: 0;
   margin: 0;
 }
+
+.folderImagesArea{
+  display: grid;
+  grid-template-columns: 22vw 22vw 22vw 22vw;
+  grid-template-rows: 30vh ;
+  background-color: skyblue;
+  padding-left: 6vw;
+}
+.folderImages{
+  flex: 1;
+/* background-color: aquamarine; */
+  /* height: 15vh; */
+  /* padding: 5px; */
+/* padding-top: 60%; */
+  /* align-items: center; */
+  width: 20vw;
+}
+.imageButton{
+  height: 3vh;
+  /* width: ; */
+  position: relative;
+  top: 0px;
+}
+.eachImageArea{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
