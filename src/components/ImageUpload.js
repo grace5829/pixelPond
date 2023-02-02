@@ -6,7 +6,9 @@ import { ref, uploadBytes, listAll, getDownloadURL, getBytes } from "firebase/st
 import { v4 } from "uuid";
 import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import FileDownload from "js-file-download"
-import Axios from "axios"
+import {saveAs} from "file-saver";
+
+// import Axios from "axios"
 function ImageUpload() {
   const [images, setImages] = useState(null);
   const [imageList, setImageList] = useState([]);
@@ -29,15 +31,6 @@ function ImageUpload() {
   };
 
   useEffect(() => {
-    // listAll(imageListRef)
-    // .then((res) => {
-    //   res.items.forEach((item) => {
-    //     getDownloadURL(item).then((url) => {
-    //       setImageList((prev) => [...prev, url]);
-    //       // console.log(url)
-    //     });
-    //   });
-    // });
     fetchImages();
   }, []);
 
@@ -63,24 +56,22 @@ function ImageUpload() {
     });
   };
 
-  const download = (url) => {
-    
-    // `url` is the download URL for 'images/stars.jpg'
-    
-    // This can be downloaded directly:
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = (event) => {
-      const blob = xhr.response;
-    };
-    console.log(xhr)
-    xhr.open('GET', url);
-   xhr.send();
-    console.log(xhr)
-    FileDownload(xhr.responseURL,"downloaod.png")
-    // // Or inserted into an <img> element
-    // const img = document.getElementById('myimg');
-    // img.setAttribute('src', url);
+  const download = async (url) => {
+    fetch(url)
+    .then(resp => resp.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      // the filename you want
+      a.download = 'todo-1.png';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      // alert('your file has downloaded!'); // or you know, something with better UX...
+    })
+    .catch(() => alert('oh no!'));
   
   };
 
@@ -101,7 +92,8 @@ function ImageUpload() {
         {imageList.map((url) => (
           <>
             <div className="eachImageArea">
-              <button className="imageButton" onClick={(e) => download(url)}>
+              <a href={url} download="test"> link </a> 
+              <button className="imageButton" onClick={(e) => download(url)} >
                 download
               </button>
               <img src={url} className="folderImages" />
