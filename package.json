@@ -9,6 +9,7 @@
     "file-saver": "^2.0.5",
     "firebase": "^9.15.0",
     "js-file-download": "^0.4.12",
+    "jszip": "^3.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-button": "^0.7.2",
