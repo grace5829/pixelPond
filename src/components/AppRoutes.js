@@ -1,6 +1,7 @@
 // import logo from './assets/logo.svg';
 import { Route, Routes } from "react-router-dom";
 import "../assets/App.css";
+import { UserAuth } from "./AuthContext";
 import  { ImageUpload, PhotoFolders, Home, LogIn, EachFolder, EachImage } from './index';
 
 function AppRoutes() {
@@ -8,12 +9,11 @@ function AppRoutes() {
   return (
     <Routes>
        {/* <Route path="/uploadImages" element={<ImageUpload/>}/> */}
-       <Route path="/photoFolders" element={<PhotoFolders/>}/>
-       <Route path="/albums/:albumName" element={<EachFolder/>}/>
-       <Route path="/albums/:albumName/photo/:imageName" element={<EachImage/>}/>
+       <Route path="/:userId/photoFolders" element={<PhotoFolders/>}/>
+       <Route path="/:userId/albums/:albumName" element={<EachFolder/>}/>
+       <Route path="/:userId/albums/:albumName/photo/:imageName" element={<EachImage/>}/>
        <Route path="/LogIn" element={<LogIn/>}/>
        <Route path="/" element={<Home/>}/>
-
     </Routes>
   );
 }

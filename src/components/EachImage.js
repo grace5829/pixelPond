@@ -1,17 +1,20 @@
 import { Link, Route, Routes, useParams } from "react-router-dom";
 import "../assets/App.css";
-import  { ImageUpload, PhotoFolders, Home, LogIn } from './index';
-import { useLocation } from 'react-router-dom'
+import { ImageUpload, PhotoFolders, Home, LogIn } from "./index";
+import { useLocation } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
+import { auth } from "../firebase-config";
+import { UserAuth } from "./AuthContext";
 
 function EachImage(props) {
-    const { imageName } = useParams(); // STEP 2
-//     const { imageName } = props.image; // STEP 2
-const location = useLocation()
-const { imageLink, folderName } = location.state
-// console.log(location)
+  const { imageName } = useParams(); // STEP 2
+  //     const { imageName } = props.image; // STEP 2
+  const location = useLocation();
+  const { imageLink, folderName } = location.state;
 
-const download = async () => {
-    console.log(imageLink)
+  const download = async () => {
+    console.log(imageLink);
     fetch(imageLink)
       .then((resp) => resp.blob())
       .then((blob) => {
@@ -29,16 +32,16 @@ const download = async () => {
       .catch(() => alert("oh no!"));
   };
 
-  return (
-<div>
-    <h1>Each Image</h1>
-    <Link to={`/albums/${folderName}`}>
-        <div>Back</div>
-    </Link>
-    <img src={imageLink} className={"singleImage"} />
-    <button onClick={(e)=>download(e)}>Download</button>
 
-</div>
+  return (
+    <div>
+      <h1>Each Image</h1>
+      <Link to={`/albums/${folderName}`}>
+        <div>Back</div>
+      </Link>
+      <img src={imageLink} className={"singleImage"} />
+      <button onClick={(e) => download(e)}>Download</button>
+    </div>
   );
 }
 

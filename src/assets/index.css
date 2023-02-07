@@ -18,7 +18,7 @@ code {
     monospace;
 }
 
-.folderArea {
+.eachFolder {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,8 +26,11 @@ code {
   width: 140px;
   height: 140px;
   padding: 3px;
-  border: solid;
 }
+.folderArea{
+  display: flex;
+flex-direction: column
+;}
 .folderImg {
   width: 65px;
   display: flex;

@@ -14,25 +14,27 @@ import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import FileDownload from "js-file-download";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
-import { Link } from "react-router-dom";
-import { EachImage } from ".";
+import { Link, useParams } from "react-router-dom";
+import { UserAuth } from "./AuthContext";
 
 // import Axios from "axios"
 function ImageUpload() {
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
   const [selectedImages, setSelectedImages] = useState({});
+  const { userId } = useParams();
+  const { albumName } = useParams(); // STEP 2
   const imageListRef = ref(storage, "images/");
-  const albumFolders = collection(db, "albums");
-  let folderName="folder1"
+  const albumFolders = collection(db, `albums/${userId}/personalAlbums`);
+  let folderName="folder2"
   // const data = doc(db, "worms", props.userId, "journal", entry.id);
-  const data = doc(db, "albums", `${folderName}`);
+  const data = doc(db, 'albums', userId, "personalAlbums", albumName);
+  // const data = doc(db, 'albums', folderName);
   const aRef = useRef(null);
-
   const fetchImages = async () => {
     try {
       const datas = await getDoc(data);
-      // console.log(datas);
+      console.log(datas);
       Object.keys(datas.data()).forEach((name) => {
         // console.log(name + datas.data()[name] )
         setImageList((prev) => ({ ...prev, [name]: datas.data()[name] }));
@@ -45,20 +47,10 @@ function ImageUpload() {
     }
     // setImageList({...sorted})
   };
-  // console.log("imageLIST:" + Object.keys(imageList));
-  console.log("IMAGELIST BEFORE SORTING",imageList)
-//  let sorted=Object.keys(imageList)
-//  .sort()
-//  .reduce((accumulator, key) => {
-//    accumulator[key] = imageList[key];
-
-//    return accumulator;
-//  }, {})
-//   console.log("SORTED IMAGES",sorted)
   useEffect(() => {
     fetchImages();
   }, []);
-
+console.log(imageList)
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
@@ -71,7 +63,6 @@ function ImageUpload() {
         getDownloadURL(snapshot.ref).then((url) => {
           setImageList((prev) => ({ ...prev, [name.split(".")[0]]: url }));
           let newName = image.name.split(".")[0];
-          console.log("NEW NAMMEEE!!!!",newName);
           // obj[image.name]=url
           obj[newName] = url;
           // updateDoc allows us to override info in DB or add info without erasing previously data
@@ -80,7 +71,6 @@ function ImageUpload() {
         });
       });
     });
-    setImageList(imageList.sort((a,b)=>a-b))
     aRef.current.value = null;
   };
 
@@ -171,9 +161,7 @@ function ImageUpload() {
 
   return (
     <div className="App">
-      <h1>
-        Story of my life stolen moments Fotomates picture me now my photo stash
-      </h1>
+
       <input
         type="file"
         multiple
@@ -191,7 +179,7 @@ function ImageUpload() {
       <div className="folderImagesArea">
         {Object.keys(imageList).map( (name) => (
           <div className={"eachImageArea"} key={v4()}>
-            <Link state={{ imageLink:`${imageList[name]}`, folder:`${folderName}`  }} to={`/albums/folder1/photo/${name}`} key={name}>
+            <Link state={{ imageLink:`${imageList[name]}`, folder:`${folderName}`  }} to={`/${userId}/albums/folder1/photo/${name}`} key={name}>
             <div className={"eachImageName"}>{name}</div>
             </Link>
             <input type="checkbox" onChange={checkedImages} value={"false"} />
