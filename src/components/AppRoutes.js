@@ -12,7 +12,7 @@ function AppRoutes() {
        {/* <Route path="/uploadImages" element={<ImageUpload/>}/> */}
        <Route path="/:userId/photoFolders" element={<PhotoFolders/>}/>
        <Route path="/:userId/albums/:albumName" element={<EachFolder/>}/>
-       <Route path="/albums/:albumName/photo/:imageName" element={<EachImage/>}/>
+       <Route path="/:userId/albums/:albumName/photo/:imageName" element={<EachImage/>}/>
        <Route path="/LogIn" element={<LogIn/>}/>
        <Route path="/" element={<Home/>}/>
     </Routes>

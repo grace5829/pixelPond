@@ -5,65 +5,50 @@ import { db, storage } from "../firebase-config";
 import {
   ref,
   uploadBytes,
-  listAll,
   getDownloadURL,
-  getBytes,
 } from "firebase/storage";
 import { v4 } from "uuid";
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import FileDownload from "js-file-download";
+import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import { Link, useParams } from "react-router-dom";
-import { UserAuth } from "./AuthContext";
-
-// import Axios from "axios"
 function ImageUpload() {
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
   const [selectedImages, setSelectedImages] = useState({});
   const { userId } = useParams();
-  const { albumName } = useParams(); // STEP 2
+  const { albumName } = useParams();
   const imageListRef = ref(storage, "images/");
   const albumFolders = collection(db, `albums/${userId}/personalAlbums`);
-  let folderName="folder2"
-  // const data = doc(db, "worms", props.userId, "journal", entry.id);
-  const data = doc(db, 'albums', userId, "personalAlbums", albumName);
-  // const data = doc(db, 'albums', folderName);
+  const data = doc(db, "albums", userId, "personalAlbums", albumName);
   const aRef = useRef(null);
   const fetchImages = async () => {
     try {
       const datas = await getDoc(data);
       console.log(datas);
       Object.keys(datas.data()).forEach((name) => {
-        // console.log(name + datas.data()[name] )
         setImageList((prev) => ({ ...prev, [name]: datas.data()[name] }));
       });
-      // Object.values(datas.data()).forEach((imageUrl) => {
-      //   setImageList((prev) => [...prev, imageUrl]);
-      // });
     } catch (error) {
       console.log(error);
     }
-    // setImageList({...sorted})
   };
   useEffect(() => {
     fetchImages();
   }, []);
-console.log(imageList)
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
     Object.values(uploadImages).forEach((image) => {
-      // console.log("image 0:", image);
-      const imageRef = ref(storage, `images/${image.name.split(".")[0] + v4()}`);
-      // console.log("imageRef", imageRef);
+      const imageRef = ref(
+        storage,
+        `images/${image.name.split(".")[0] + v4()}`
+      );
       let name = image.name;
       uploadBytes(imageRef, image).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
           setImageList((prev) => ({ ...prev, [name.split(".")[0]]: url }));
           let newName = image.name.split(".")[0];
-          // obj[image.name]=url
           obj[newName] = url;
           // updateDoc allows us to override info in DB or add info without erasing previously data
           //we can use setDoc if we always want to erase all informaiton
@@ -87,7 +72,6 @@ console.log(imageList)
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
-        // alert('your file has downloaded!'); // or you know, something with better UX...
       })
       .catch(() => alert("oh no!"));
   };
@@ -109,7 +93,6 @@ console.log(imageList)
     // setImageList((prev) => ({ ...prev,[name]: imageList[name] }));
     console.log(event);
   };
-  // console.log("selectedIMAGES:", selectedImages);
 
   const downloadSelected = () => {
     Object.keys(selectedImages).forEach((image) => {
@@ -131,41 +114,30 @@ console.log(imageList)
     });
   };
 
-  let one="https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg"
-  // console.log(imageList);
   const downloadAll = async () => {
     var zip = new JSZip();
-    var img = zip.folder("images"); //images is the folder which will be zip
-    img.file(`test.png`, one);
-    // await Object.keys(imageList).forEach((image) => {
-    //   // imageList[image].download=`${image}.png`
-    //   fetch(imageList[image])
-    //   .then((resp) => resp.blob())
-    //   .then((blob) => {
-    //     const url = window.URL.createObjectURL(blob);
-    //     // console.log(url)
-    //     const a = document.createElement("a");
-    //     a.style.display = "none";
-    //     a.href = url;
-    //     // the filename you want
-        
-    //     a.download = `${image}.jpeg`;
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     window.URL.revokeObjectURL(url)
-    //     // alert('your file has downloaded!'); // or you know, something with better UX...
-    //   })
-    //   img.file(`${image}.jpeg`, imageList[image]);
-    //   // .catch(() => alert("oh no!"))
-    // });
-    zip.generateAsync({type:"blob"}).then(function(content) {
-      saveAs(content, "example.zip");
+
+    // block.packages is an array of items from the CMS
+    const remoteZips = Object.keys(imageList).map(async (image) => {
+      // pack.file.url is the URL for the .zip hosted on the CMS
+      const response = await fetch(imageList[image]);
+      const data = await response.blob();
+
+      // pack.kitName is from a loop, replace with your file name.
+      zip.file(`${image}.jpeg`, data);
+
+      return data;
+    });
+
+    Promise.all(remoteZips).then(() => {
+      zip.generateAsync({ type: "blob" }).then((content) => {
+        saveAs(content, `StoryOfMyLife.zip`);
+      });
     });
   };
 
   return (
     <div className="App">
-
       <input
         type="file"
         multiple
@@ -177,14 +149,21 @@ console.log(imageList)
       <button onClick={handleUpload}>Upload </button>
       <div>
         <button onClick={downloadSelected}>Download selected </button>
-        <button onClick={(e)=>downloadAll(e)}>Download All </button>
+        <button onClick={(e) => downloadAll(e)}>Download All </button>
       </div>
 
       <div className="folderImagesArea">
-        {Object.keys(imageList).map( (name) => (
+        {Object.keys(imageList).map((name) => (
           <div className={"eachImageArea"} key={v4()}>
-            <Link state={{ imageLink:`${imageList[name]}`, folder:`${folderName}`  }} to={`/${userId}/albums/folder1/photo/${name}`} key={name}>
-            <div className={"eachImageName"}>{name}</div>
+            <Link
+              state={{
+                imageLink: `${imageList[name]}`,
+                folder: `${albumName}`,
+              }}
+              to={`/${userId}/albums/${albumName}/photo/${name}`}
+              key={name}
+            >
+              <div className={"eachImageName"}>{name}</div>
             </Link>
             <input type="checkbox" onChange={checkedImages} value={"false"} />
             <button
