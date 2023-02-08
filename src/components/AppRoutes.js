@@ -5,13 +5,14 @@ import { UserAuth } from "./AuthContext";
 import  { ImageUpload, PhotoFolders, Home, LogIn, EachFolder, EachImage } from './index';
 
 function AppRoutes() {
+  const { user } = UserAuth();
 
   return (
     <Routes>
        {/* <Route path="/uploadImages" element={<ImageUpload/>}/> */}
        <Route path="/:userId/photoFolders" element={<PhotoFolders/>}/>
        <Route path="/:userId/albums/:albumName" element={<EachFolder/>}/>
-       <Route path="/:userId/albums/:albumName/photo/:imageName" element={<EachImage/>}/>
+       <Route path="/albums/:albumName/photo/:imageName" element={<EachImage/>}/>
        <Route path="/LogIn" element={<LogIn/>}/>
        <Route path="/" element={<Home/>}/>
     </Routes>

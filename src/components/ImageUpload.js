@@ -136,24 +136,28 @@ console.log(imageList)
   const downloadAll = async () => {
     var zip = new JSZip();
     var img = zip.folder("images"); //images is the folder which will be zip
-    img.file(`test.png`, imageList[one]);
-    await Object.keys(imageList).forEach((image) => {
-      // let picture= fetch(imageList[image])
-      // .then((resp) => resp.blob())
-      // .then((blob) => {
-      //   const url = window.URL.createObjectURL(blob);
-      //   const a = document.createElement("a");
-      //   a.style.display = "none";
-      //   a.href = url;
-      //   // the filename you want
-      //   a.download = `${image}.png`;
-      //   document.body.appendChild(a);
-      //   a.click();
-      //    window.URL.revokeObjectURL(url)
-      //   // alert('your file has downloaded!'); // or you know, something with better UX...
-      // })
-      // .catch(() => alert("oh no!"))
-    });
+    img.file(`test.png`, one);
+    // await Object.keys(imageList).forEach((image) => {
+    //   // imageList[image].download=`${image}.png`
+    //   fetch(imageList[image])
+    //   .then((resp) => resp.blob())
+    //   .then((blob) => {
+    //     const url = window.URL.createObjectURL(blob);
+    //     // console.log(url)
+    //     const a = document.createElement("a");
+    //     a.style.display = "none";
+    //     a.href = url;
+    //     // the filename you want
+        
+    //     a.download = `${image}.jpeg`;
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     window.URL.revokeObjectURL(url)
+    //     // alert('your file has downloaded!'); // or you know, something with better UX...
+    //   })
+    //   img.file(`${image}.jpeg`, imageList[image]);
+    //   // .catch(() => alert("oh no!"))
+    // });
     zip.generateAsync({type:"blob"}).then(function(content) {
       saveAs(content, "example.zip");
     });

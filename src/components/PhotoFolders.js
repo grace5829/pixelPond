@@ -13,6 +13,7 @@ import '../assets/folders.css';
 
 function PhotoFolders() {
   const { userId } = useParams();
+  
   const [folders, setFolders] = useState([]);
   const [newFolder, setNewFolder] = useState("");
   const albums = collection(db, `albums/${userId}/personalAlbums`);
@@ -31,6 +32,7 @@ let nameNewFolder= {folder: newFolder}
     );
   };
 
+
   const handleNewFolder=async ()=>{
         const newAlbum = await setDoc(doc(db,"albums", userId,"personalAlbums", newFolder), {
         })
@@ -38,7 +40,7 @@ let nameNewFolder= {folder: newFolder}
   }
 
   return (
-    <div className="sideNavbar">
+    <div>
 
       <button onClick={(evt)=>handleNewFolder()}>Add folder</button>
       <input value={newFolder} onChange={(e)=> setNewFolder(`${e.target.value}`) }/>

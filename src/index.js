@@ -5,14 +5,14 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import  { AppRoutes, Navbar, PhotoFolders } from './components/index';
 import { AuthContextProvider } from './components/AuthContext';
+import App from './components/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <AuthContextProvider>
     <Navbar/>
-    <AppRoutes />
-    <PhotoFolders/>
+    <App/>
     </AuthContextProvider>
     </Router>
 
