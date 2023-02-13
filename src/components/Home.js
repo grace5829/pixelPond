@@ -9,7 +9,7 @@ function Home() {
   return (
     <div>
       <h1>
-        Story of my life 
+        Story of my life                             
       </h1>   
     {user? 
     <div>Logged in</div>: 
