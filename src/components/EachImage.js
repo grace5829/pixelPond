@@ -8,13 +8,11 @@ import { auth } from "../firebase-config";
 import { UserAuth } from "./AuthContext";
 
 function EachImage(props) {
-  const { imageName } = useParams(); // STEP 2
-  //     const { imageName } = props.image; // STEP 2
+  const { userId,imageName } = useParams();
   const location = useLocation();
-  const { imageLink, folderName } = location.state;
-
+  const { imageLink, folder } = location.state;
+console.log(folder)
   const download = async () => {
-    console.log(imageLink);
     fetch(imageLink)
       .then((resp) => resp.blob())
       .then((blob) => {
@@ -36,7 +34,7 @@ function EachImage(props) {
   return (
     <div>
       <h1>Each Image</h1>
-      <Link to={`/albums/${folderName}`}>
+      <Link to={`/${userId}/albums/${folder}`}>
         <div>Back</div>
       </Link>
       <img src={imageLink} className={"singleImage"} />
