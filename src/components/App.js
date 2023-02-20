@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { auth, db } from "../firebase-config";
 import { AppRoutes, Navbar, PhotoFolders } from "./index";
-import "../assets/folders.css";
 import {
   Typography,
   AppBar,
@@ -24,7 +23,7 @@ function App() {
   const {classes}=useStyles()
   return (
     <div className="App">
-      <CssBaseline>
+       {/* <CssBaseline>
         <AppBar position="relative">
           <Toolbar>
             <PhotoCamera className={classes.icon}/>
@@ -70,7 +69,7 @@ function App() {
           <Container className={classes.cardGrid} maxWidth="md">
             <Grid container spacing={4}>
             {cards.map((card)=> (
-              <Grid item key={card} xs={12} md={4}>
+              <Grid item key={card} xs={4} md={4}>
                 <Card className={classes.card}>
                   <CardMedia className={classes.cardMedia} image="https://source.unsplash.com/random" title="Image title"/>
                   <CardContent className={classes.CardContent}>
@@ -91,8 +90,8 @@ function App() {
           <Typography variant="h6" align="center" gutterBottom>footer</Typography>
           <Typography variant="subtitle1" align="center" color="textSecondary">Something to give footer a purpose</Typography>
         </footer>
-      </CssBaseline>
-      {/* <AppRoutes /> */}
+      </CssBaseline>  */}
+      <AppRoutes />
     </div>
   );
 }

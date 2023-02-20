@@ -14,7 +14,7 @@ const useStyles = makeStyles()((theme) => {
         marginTop:'40px'
     },
     cardGrid:{
-        padding:'20px 0'
+        padding:'10px 0'
     },
     card:{
         height:'100%',
@@ -22,7 +22,8 @@ const useStyles = makeStyles()((theme) => {
         flexDirection:'column'
     },
     cardMedia:{
-        paddingTop:'56.25%' //16:9 ratio
+        paddingTop:'100%' //16:9 ratio
+        // height:'100%'
     },
     cardContent:{
         flexGrow:'1'
@@ -30,7 +31,8 @@ const useStyles = makeStyles()((theme) => {
     footer:{
         backgroundColor:theme.palette.primary.main,
         padding:'20px 0'
-    }
+    },
+
   };
 });
 export default useStyles;

@@ -1,13 +1,25 @@
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../assets/App.css";
-import { ImageUpload, PhotoFolders, Home, LogIn } from "./index";
 import { useLocation } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { useState } from "react";
-import { auth } from "../firebase-config";
-import { UserAuth } from "./AuthContext";
+import {
+  Typography,
+  AppBar,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CssBaseline,
+  Grid,
+  Toolbar,
+  Container,
+  Button,
+  ButtonGroup,
+} from "@mui/material";
+import useStyles from "./style";
 
 function EachImage(props) {
+  const {classes}=useStyles()
+
   const { userId,imageName } = useParams();
   const location = useLocation();
   const { imageLink, folder } = location.state;

@@ -8,7 +8,23 @@ import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import { Link, useParams } from "react-router-dom";
+import {
+  Typography,
+  AppBar,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CssBaseline,
+  Grid,
+  Toolbar,
+  Container,
+  Button,
+  ButtonGroup,
+} from "@mui/material";
+import useStyles from "./style";
 function ImageUpload() {
+  const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
   const [selectedImages, setSelectedImages] = useState([]);
@@ -184,10 +200,36 @@ function ImageUpload() {
             {/* <button className={"imageDeleteButton"} onClick={(e) => deleteImage(name)}>
               Delete
             </button> */}
+            
             <img src={imageList[name]} className={"oneAllImages"} />
           </div>
         ))}
+              {/* <Container className={classes.cardGrid} maxWidth="md">
+        <Grid container spacing={2}>
+          {Object.keys(imageList).map((card) => (
+            <Grid item key={card} xs={4} md={4}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={imageList[card]}
+                  title="Image title"
+                />
+                <CardContent className={classes.CardContent}>
+                    <Typography gutterBottom variant="h5">
+                      {card}
+                    </Typography>
+                  <Typography>
+                    {" "}
+                    This is a media card. You can use to describe content
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container> */}
       </div>
+
     </div>
   );
 }
