@@ -25,14 +25,13 @@ import {
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import useStyles from "./style";
 function ImageUpload() {
-  const {classes}=useStyles()
+  // const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
-  const [selectedImages, setSelectedImages] = useState([]);
-  const { userId } = useParams();
-  const { albumName } = useParams();
-  const imageListRef = ref(storage, "images/");
-  const albumFolders = collection(db, `albums/${userId}/personalAlbums`);
+  // const [selectedImages, setSelectedImages] = useState([]);
+  const { userId, albumName } = useParams();
+  // const imageListRef = ref(storage, "images/");
+  // const albumFolders = collection(db, `albums/${userId}/personalAlbums`);
   const data = doc(db, "albums", userId, "personalAlbums", albumName);
   const aRef = useRef(null);
   const fetchImages = async () => {
