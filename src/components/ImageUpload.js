@@ -22,6 +22,7 @@ import {
   Button,
   ButtonGroup,
 } from "@mui/material";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import useStyles from "./style";
 function ImageUpload() {
   const {classes}=useStyles()
@@ -70,6 +71,7 @@ function ImageUpload() {
       });
     });
     aRef.current.value = null;
+    show("newPhotoArea", "newPhotoImage")
   };
 
   const download = async (fileName) => {
@@ -150,8 +152,26 @@ function ImageUpload() {
     });
   };
 
+  const show = (hiddenEle, shownEle) => {
+    const x = document.getElementById(`${hiddenEle}`);
+    const y = document.getElementById(`${shownEle}`);
+    (x.style.display === "none" ?
+      x.style.display = "block":
+      x.style.display = "none")
+    
+ (y.style.display === "none" ?
+      y.style.display = "block": 
+      y.style.display = "none"
+ )
+  };
   return (
     <div className="App">
+            <AddAPhotoIcon
+        fontSize="large"
+        id="newPhotoImage"
+        onClick={() => show("newPhotoArea", "newPhotoImage")}
+      />
+      <div id="newPhotoArea" style={{display:"none"}}>
       <input
         type="file"
         multiple
@@ -161,14 +181,15 @@ function ImageUpload() {
         }}
       />
       <button onClick={handleUpload}>Upload </button>
+        </div>
       <div>
         {/* {selectedImages==={}? <></>: Object.keys(imageList).map((name)=>{
           <div>{name} </div>
         })} */}
         <button onClick={downloadSelected}>Download selected </button>
         <button onClick={(e) => downloadAll(e)}>Download All </button>
-
       </div>
+
       <div className="allImagesArea">
         {Object.keys(imageList).map((name) => (
           <div className={"eachImageArea"} key={v4()}>

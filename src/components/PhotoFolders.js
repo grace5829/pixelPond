@@ -54,26 +54,16 @@ function PhotoFolders() {
   const show = (hiddenEle, shownEle) => {
     const x = document.getElementById(`${hiddenEle}`);
     const y = document.getElementById(`${shownEle}`);
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-    if (y.style.display === "none") {
-      y.style.display = "block";
-    } else {
-      y.style.display = "none";
-    }
-    // show2(shownEle)
+    (x.style.display === "none" ?
+      x.style.display = "block":
+      x.style.display = "none")
+    
+ (y.style.display === "none" ?
+      y.style.display = "block": 
+      y.style.display = "none"
+ )
   };
-  // const show2 = (hiddenEle, shownEle) => {
-  //   const y = document.getElementById(`${shownEle}`);
-  //   if (y.style.display === "none") {
-  //     y.style.display = "block";
-  //   } else {
-  //     y.style.display = "none";
-  //   }
-  // };
+
   return (
     <div>
       <div className={classes.container}>
