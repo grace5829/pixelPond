@@ -59,11 +59,11 @@ function PhotoFolders() {
     } else {
       x.style.display = "none";
     }
-    // if (y.style.display === "none") {
-    //   y.style.display = "block";
-    // } else {
-    //   y.style.display = "none";
-    // }
+    if (y.style.display === "none") {
+      y.style.display = "block";
+    } else {
+      y.style.display = "none";
+    }
     // show2(shownEle)
   };
   // const show2 = (hiddenEle, shownEle) => {
@@ -96,18 +96,18 @@ function PhotoFolders() {
           </Typography>
         </Container>
       </div>
-      <CreateNewFolderOutlinedIcon
-        fontSize="large"
-        id="newFolder"
-        onClick={() => show("newFolderArea", "newFolder")}
-      />
-      <div id="newFolderArea">
+      <div id="newFolderArea" style={{display:"none"}}>
         <button onClick={(evt) => handleNewFolder()}>Add folder</button>
         <input
           value={newFolder}
           onChange={(e) => setNewFolder(`${e.target.value}`)}
         />
       </div>
+      <CreateNewFolderOutlinedIcon
+        fontSize="large"
+        id="newFolder"
+        onClick={() => show("newFolderArea", "newFolder")}
+      />
       <div className="folderArea">
         {/* {folders ? 
         folders.map((folder) => (
