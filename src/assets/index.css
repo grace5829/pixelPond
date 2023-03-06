@@ -91,3 +91,8 @@ float: left;}
 }
 #newFolderArea{
 height: 5vh;}
+
+
+.fa-download:hover, .checkbox{
+  cursor: pointer;
+}
