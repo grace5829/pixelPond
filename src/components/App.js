@@ -20,7 +20,7 @@ import useStyles from "./style";
 const cards=[1,2,3,4,5,6,7,8,9]
 function App() {
   
-  const {classes}=useStyles()
+  // const {classes}=useStyles()
   return (
     <div className="App">
        {/* <CssBaseline>
