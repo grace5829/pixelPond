@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <AuthContextProvider>
-    {/* <Navbar/> */}
+    <Navbar/>
     <App/>
     </AuthContextProvider>
     </Router>

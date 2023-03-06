@@ -8,7 +8,24 @@ import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import { Link, useParams } from "react-router-dom";
+import {
+  Typography,
+  AppBar,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CssBaseline,
+  Grid,
+  Toolbar,
+  Container,
+  Button,
+  ButtonGroup,
+} from "@mui/material";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import useStyles from "./style";
 function ImageUpload() {
+  const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
   const [selectedImages, setSelectedImages] = useState([]);
@@ -54,6 +71,7 @@ function ImageUpload() {
       });
     });
     aRef.current.value = null;
+    show("newPhotoArea", "newPhotoImage")
   };
 
   const download = async (fileName) => {
@@ -134,8 +152,26 @@ function ImageUpload() {
     });
   };
 
+  const show = (hiddenEle, shownEle) => {
+    const x = document.getElementById(`${hiddenEle}`);
+    const y = document.getElementById(`${shownEle}`);
+    (x.style.display === "none" ?
+      x.style.display = "block":
+      x.style.display = "none")
+    
+ (y.style.display === "none" ?
+      y.style.display = "block": 
+      y.style.display = "none"
+ )
+  };
   return (
     <div className="App">
+            <AddAPhotoIcon
+        fontSize="large"
+        id="newPhotoImage"
+        onClick={() => show("newPhotoArea", "newPhotoImage")}
+      />
+      <div id="newPhotoArea" style={{display:"none"}}>
       <input
         type="file"
         multiple
@@ -145,14 +181,15 @@ function ImageUpload() {
         }}
       />
       <button onClick={handleUpload}>Upload </button>
+        </div>
       <div>
         {/* {selectedImages==={}? <></>: Object.keys(imageList).map((name)=>{
           <div>{name} </div>
         })} */}
         <button onClick={downloadSelected}>Download selected </button>
         <button onClick={(e) => downloadAll(e)}>Download All </button>
-
       </div>
+
       <div className="allImagesArea">
         {Object.keys(imageList).map((name) => (
           <div className={"eachImageArea"} key={v4()}>
@@ -184,10 +221,36 @@ function ImageUpload() {
             {/* <button className={"imageDeleteButton"} onClick={(e) => deleteImage(name)}>
               Delete
             </button> */}
+            
             <img src={imageList[name]} className={"oneAllImages"} />
           </div>
         ))}
+              {/* <Container className={classes.cardGrid} maxWidth="md">
+        <Grid container spacing={2}>
+          {Object.keys(imageList).map((card) => (
+            <Grid item key={card} xs={4} md={4}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={imageList[card]}
+                  title="Image title"
+                />
+                <CardContent className={classes.CardContent}>
+                    <Typography gutterBottom variant="h5">
+                      {card}
+                    </Typography>
+                  <Typography>
+                    {" "}
+                    This is a media card. You can use to describe content
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container> */}
       </div>
+
     </div>
   );
 }
