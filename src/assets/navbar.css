@@ -2,9 +2,11 @@
     display: flex;
     flex-direction: row;
     gap: 15px ;
-    background-color: rgb(18, 46, 172);
+    font-weight: 200;
+    letter-spacing: 1px;
+    /* background-color: rgb(178, 93, 244); */
     color: white;
-    font-family: 'Arial Rounded MT Bold';
+    font-family: 'Bold';
     padding: 5px;
 }
 
@@ -18,3 +20,32 @@ a{
 #logOut{
     cursor: pointer;
 }
+
+a {
+    font-size: 20px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    padding: 5px 20px 8px;
+    margin-left: 5px;
+    outline: 0;
+    border: 1px solid black;
+    cursor: pointer;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  
+  a::after {
+    content: "";
+    background-color: #f5a3e6;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 6px;
+    left: 7px;
+    transition: 0.2s;
+  }
+  a:hover::after {
+    top: 0px;
+    left: 0px;
+  }

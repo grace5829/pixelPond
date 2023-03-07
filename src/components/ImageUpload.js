@@ -211,6 +211,9 @@ function ImageUpload() {
               // onChange={checkedImages}
               id={name}
             />
+            <div onClick={()=>deleteImage(name)}>X</div>
+            </div>
+            <img src={imageList[name]} className={"oneAllImages"} />
             <Link
               state={{
                 imageLink: `${imageList[name]}`,
@@ -219,22 +222,17 @@ function ImageUpload() {
               to={`/${userId}/albums/${albumName}/photo/${name}`}
               key={name}
             >
+                          <div className={"imageAreaBottom"}>
+
               <div className={"eachImageName"}>{name}</div>
-            </Link>
-           
-            <div
+              <div
               className={"imageDownloadButton"}
               onClick={(e) => download(name)}
             >
         <i className="fa fa-download"></i>
+        </div>
             </div>
-            </div>
-            <button onClick={()=>deleteImage(name)}>X</button>
-            {/* <button className={"imageDeleteButton"} onClick={(e) => deleteImage(name)}>
-              Delete
-            </button> */}
-            
-            <img src={imageList[name]} className={"oneAllImages"} />
+            </Link>
           </div>
         ))}
               {/* <Container className={classes.cardGrid} maxWidth="md">
