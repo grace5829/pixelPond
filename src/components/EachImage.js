@@ -18,12 +18,9 @@ import {
 import useStyles from "./style";
 
 function EachImage(props) {
-  const {classes}=useStyles()
-
   const { userId,imageName } = useParams();
   const location = useLocation();
   const { imageLink, folder } = location.state;
-console.log(folder)
   const download = async () => {
     fetch(imageLink)
       .then((resp) => resp.blob())

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { db, storage } from "../firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
-import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, deleteField, doc, getDoc, updateDoc } from "firebase/firestore";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import { Link, useParams } from "react-router-dom";
@@ -90,17 +90,17 @@ function ImageUpload() {
       .catch(() => alert("oh no!"));
   };
 
-  const deleteImage = (test) => {
-    let cost = test;
-    setImageList((current) => {
-      // remove cost key from object
-      const copy = { ...current };
-      delete copy[test];
-      return copy;
-    });
-  };
+  // const deleteImage = (test) => {
+  //   let cost = test;
+  //   setImageList((current) => {
+  //     // remove cost key from object
+  //     const copy = { ...current };
+  //     delete copy[test];
+  //     return copy;
+  //   });
+  // };
 
-  const checkedImages = () => {};
+  // const checkedImages = () => {};
 
   const downloadSelected = () => {
     let checkboxes = document.querySelectorAll(".checkbox");
@@ -163,6 +163,18 @@ function ImageUpload() {
       y.style.display = "none"
  )
   };
+  async function deleteImage(entry) {
+    const folderRef = doc(db, "albums", userId, "personalAlbums", albumName);
+    await updateDoc(folderRef,{
+      [entry]:deleteField()
+    })
+    let copyImageSet=imageList
+   Reflect.deleteProperty(copyImageSet,entry)
+   setImageList(copyImageSet)
+   fetchImages()
+    // await setWorms(worms.filter((worm) => worm !== entry));
+    // await setWormsBackup(worms.filter((worm) => worm !== entry));
+  }
   return (
     <div className="App">
             <AddAPhotoIcon
@@ -196,7 +208,7 @@ function ImageUpload() {
             <input
               type={"checkbox"}
               className={"checkbox"}
-              onChange={checkedImages}
+              // onChange={checkedImages}
               id={name}
             />
             <Link
@@ -214,9 +226,10 @@ function ImageUpload() {
               className={"imageDownloadButton"}
               onClick={(e) => download(name)}
             >
-        <i class="fa fa-download"></i>
+        <i className="fa fa-download"></i>
             </div>
             </div>
+            <button onClick={()=>deleteImage(name)}>X</button>
             {/* <button className={"imageDeleteButton"} onClick={(e) => deleteImage(name)}>
               Delete
             </button> */}
