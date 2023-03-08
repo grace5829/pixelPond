@@ -12,7 +12,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f6e8cd;
+  background-color: #c5b7d4;
 }
 
 code {
@@ -55,13 +55,13 @@ code {
   align-items: center;
   align-content: center;
   /* height: 60vh;  */
-  margin: 5px;
+  margin: 2px;
   /* opacity: 0.8;
   border-radius: 12px; */
-  /* border: 2px solid grey; */
+  /* border: 2px solid rgb(245, 245, 245); */
   border-radius: 15px;
-  background-color: rgb(229, 202, 223);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: rgba(253, 253, 252, 0.844);
+  box-shadow: 0 0 10px rgba(154, 200, 233, 0.852);
 }
 /* .eachImageArea img:hover {
   background-color: rgba(255, 255, 255);
@@ -78,6 +78,9 @@ float: left;}
   justify-content: space-between;
   padding: 2px;
   width: 100%;
+}
+.imageAreaTop{
+
 }
 .eachImageName {
   font-size: 12px;

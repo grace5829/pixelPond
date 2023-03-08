@@ -5,23 +5,50 @@
     font-weight: 200;
     letter-spacing: 1px;
     /* background-color: rgb(178, 93, 244); */
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: 'Bold';
     padding: 5px;
 }
 
 a{
-    text-decoration: none;
-    
-}
-.navLink{
-    color: white;
-}
-#logOut{
-    cursor: pointer;
+    text-decoration: none; 
 }
 
-a {
+#logOut{
+    cursor: pointer;
+    font-size: .6rem;
+    letter-spacing: 0px;
+
+}
+/* #logOut{
+    font-size: 11px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    padding: 3px 10px 3px;
+    margin-left: 5px;
+    outline: 0;
+    border: 1px solid rgba(42, 40, 40, 0.588);
+    cursor: pointer;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  
+  #logOut::after {
+    content: "";
+    background-color: #b8d5f6;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 6px;
+    left: 7px;
+    transition: 0.2s;
+  }
+  #logOut:hover::after {
+    top: 0px;
+    left: 0px;
+  } */
+.navLink {
     font-size: 20px;
     font-weight: 200;
     letter-spacing: 1px;
@@ -34,9 +61,9 @@ a {
     background-color: rgba(0, 0, 0, 0);
   }
   
-  a::after {
+  .navLink::after {
     content: "";
-    background-color: #f5a3e6;
+    background-color: #b8d5f6;
     width: 100%;
     z-index: -1;
     position: absolute;
@@ -45,7 +72,11 @@ a {
     left: 7px;
     transition: 0.2s;
   }
-  a:hover::after {
+  .navLink:hover::after {
     top: 0px;
     left: 0px;
+  }
+
+  #navRight{
+   margin-left: auto;
   }
