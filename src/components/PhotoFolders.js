@@ -64,6 +64,11 @@ function PhotoFolders() {
  )
   };
 
+  let randomProperty = function (obj) {
+    var keys = Object.keys(obj);
+    return obj[keys[ keys.length * Math.random() << 0]];
+};
+
   return (
     <div>
       <div className={classes.container}>

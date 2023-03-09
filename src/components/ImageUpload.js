@@ -22,10 +22,11 @@ import {
   Button,
   ButtonGroup,
 } from "@mui/material";
+import DownloadIcon from '@mui/icons-material/Download';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import useStyles from "./style";
 function ImageUpload() {
-  // const {classes}=useStyles()
+  const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
   // const [selectedImages, setSelectedImages] = useState([]);
@@ -200,20 +201,20 @@ function ImageUpload() {
         <button onClick={downloadSelected}>Download selected </button>
         <button onClick={(e) => downloadAll(e)}>Download All </button>
       </div>
-
-      <div className="allImagesArea">
+      {/* <div className="allImagesArea"> */}
+      <Container className={classes.cardImageGrid} maxWidth="md">
+        <Grid container spacing={4}>
         {Object.keys(imageList).map((name) => (
-          <div className={"eachImageArea"} key={v4()}>
-            <div className={"imageAreaTop"}>
-            <input
-              type={"checkbox"}
-              className={"checkbox"}
-              // onChange={checkedImages}
-              id={name}
-            />
-            <div onClick={()=>deleteImage(name)}>X</div>
-            </div>
-            <img src={imageList[name]} className={"oneAllImages"} />
+                <Grid item key={name} xs={12} sm={6} md={4} lg={3}>
+                  <Card className={classes.image}>
+                    <CardMedia
+                      className={classes.cardImageMedia}
+                      image={imageList[name]}
+                      title="Image title"
+                    />
+                    {/* <CardContent className={classes.cardContent}>
+                </CardContent> */}
+                <CardActions>
             <Link
               state={{
                 imageLink: `${imageList[name]}`,
@@ -221,19 +222,22 @@ function ImageUpload() {
               }}
               to={`/${userId}/albums/${albumName}/photo/${name}`}
               key={name}
-            >
-                          <div className={"imageAreaBottom"}>
-
-              <div className={"eachImageName"}>{name}</div>
-              <div
-              className={"imageDownloadButton"}
-              onClick={(e) => download(name)}
-            >
-        <i className="fa fa-download"></i>
-        </div>
-            </div>
-            </Link>
-          </div>
+            >{name}
+              </Link>
+                <DownloadIcon 
+                        fontSize="medium"
+                        id="downloadIcon"
+                        onClick={ (e) => download(name)}>
+                </DownloadIcon>
+                <input
+              type={"checkbox"}
+              className={"checkbox"}
+              id={name}
+            />
+            <div onClick={()=>deleteImage(name)}>X</div>
+                </CardActions>
+                  </Card>
+                </Grid> 
         ))}
               {/* <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={2}>
@@ -259,8 +263,9 @@ function ImageUpload() {
           ))}
         </Grid>
       </Container> */}
-      </div>
-
+        </Grid>
+      </Container>
+      {/* </div> */}
     </div>
   );
 }

@@ -16,14 +16,27 @@ const useStyles = makeStyles()((theme) => {
     cardGrid:{
         padding:'10px 0'
     },
+    cardImageGrid:{
+        padding:'50px 0'
+    },
     card:{
         height:'100%',
         display:'flex',
         flexDirection:'column'
     },
+    image:{
+        height:'100%',
+        display:'flex',
+        flexDirection:'column'
+    },
     cardMedia:{
-        paddingTop:'100%' //16:9 ratio
+        paddingTop:'56.25%' //16:9 ratio
         // height:'100%'
+    },
+    cardImageMedia:{
+        // height: "250px", 
+        paddingTop: "56.25%" 
+        // paddingTop:'100%', //16:9 ratio
     },
     cardContent:{
         flexGrow:'1'
