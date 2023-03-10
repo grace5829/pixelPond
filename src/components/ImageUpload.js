@@ -54,15 +54,15 @@ function ImageUpload() {
     fetchImages();
   }, []);
 
-  console.log(imageList)
-  const sort= ()=>{
-    unsortedKeys=sortedImageList
-    unsortedKeys.sort()
-    console.log("sorteddd"+unsortedKeys)
-    setSortedImageList(unsortedKeys)
-    // setSortedImageList(unsortedKeys)
-  }
-  console.log(sortedImageList)
+  // console.log(imageList)
+  // const sort= ()=>{
+  //   unsortedKeys=sortedImageList
+  //   unsortedKeys.sort()
+  //   console.log("sorteddd"+unsortedKeys)
+  //   setSortedImageList(unsortedKeys)
+  //   // setSortedImageList(unsortedKeys)
+  // }
+  // console.log(sortedImageList)
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
@@ -75,6 +75,7 @@ function ImageUpload() {
       uploadBytes(imageRef, image).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
           setImageList((prev) => ({ ...prev, [name.split(".")[0]]: url }));
+          setSortedImageList((prev) => ([ ...prev, [name.split(".")[0]] ]));
           let newName = image.name.split(".")[0];
           obj[newName] = url;
           // updateDoc allows us to override info in DB or add info without erasing previously data
@@ -197,7 +198,7 @@ function ImageUpload() {
         id="newPhotoImage"
         onClick={() => show("newPhotoArea", "newPhotoImage")}
       />
-      <button onClick={sort}>sort</button>
+      {/* <button onClick={sort}>sort</button> */}
       <div id="newPhotoArea" style={{display:"none"}}>
       <input
         type="file"
@@ -220,7 +221,7 @@ function ImageUpload() {
       <Container className={classes.cardImageGrid} maxWidth="md">
         <Grid container spacing={4}>
         {sortedImageList.map((name) => (
-                <Grid item key={name} xs={12} sm={6} md={4} lg={4} className={name +v4()}>
+                <Grid item key={name + v4()} xs={12} sm={6} md={4} lg={4} className={name}>
                   <Card className={classes.image}>
                     <CardMedia
                       className={classes.cardImageMedia}
