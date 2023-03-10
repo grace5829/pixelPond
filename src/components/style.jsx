@@ -1,3 +1,4 @@
+import { Widgets } from "@mui/icons-material";
 import { makeStyles } from "tss-react/mui";
 const useStyles = makeStyles()((theme) => {
   return {
@@ -17,7 +18,7 @@ const useStyles = makeStyles()((theme) => {
         padding:'10px 0'
     },
     cardImageGrid:{
-        padding:'50px 0'
+        padding:'30px 0',
     },
     card:{
         height:'100%',

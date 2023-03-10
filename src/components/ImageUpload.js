@@ -29,18 +29,22 @@ function ImageUpload() {
   const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
+  const [sortedImageList, setSortedImageList] = useState([]);
   // const [selectedImages, setSelectedImages] = useState([]);
   const { userId, albumName } = useParams();
   // const imageListRef = ref(storage, "images/");
   // const albumFolders = collection(db, `albums/${userId}/personalAlbums`);
   const data = doc(db, "albums", userId, "personalAlbums", albumName);
   const aRef = useRef(null);
+  let unsortedKeys=[]
   const fetchImages = async () => {
     try {
       const datas = await getDoc(data);
       console.log(datas);
       Object.keys(datas.data()).forEach((name) => {
         setImageList((prev) => ({ ...prev, [name]: datas.data()[name] }));
+        setSortedImageList((prev)=> ([...prev, name]))
+        // unsortedKeys.push(name)
       });
     } catch (error) {
       console.log(error);
@@ -50,6 +54,15 @@ function ImageUpload() {
     fetchImages();
   }, []);
 
+  console.log(imageList)
+  const sort= ()=>{
+    unsortedKeys=sortedImageList
+    unsortedKeys.sort()
+    console.log("sorteddd"+unsortedKeys)
+    setSortedImageList(unsortedKeys)
+    // setSortedImageList(unsortedKeys)
+  }
+  console.log(sortedImageList)
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
@@ -176,6 +189,7 @@ function ImageUpload() {
     // await setWorms(worms.filter((worm) => worm !== entry));
     // await setWormsBackup(worms.filter((worm) => worm !== entry));
   }
+
   return (
     <div className="App">
             <AddAPhotoIcon
@@ -183,6 +197,7 @@ function ImageUpload() {
         id="newPhotoImage"
         onClick={() => show("newPhotoArea", "newPhotoImage")}
       />
+      <button onClick={sort}>sort</button>
       <div id="newPhotoArea" style={{display:"none"}}>
       <input
         type="file"
@@ -204,8 +219,8 @@ function ImageUpload() {
       {/* <div className="allImagesArea"> */}
       <Container className={classes.cardImageGrid} maxWidth="md">
         <Grid container spacing={4}>
-        {Object.keys(imageList).map((name) => (
-                <Grid item key={name} xs={12} sm={6} md={4} lg={3}>
+        {sortedImageList.map((name) => (
+                <Grid item key={name} xs={12} sm={6} md={4} lg={4} className={name +v4()}>
                   <Card className={classes.image}>
                     <CardMedia
                       className={classes.cardImageMedia}
