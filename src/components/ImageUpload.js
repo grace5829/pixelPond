@@ -22,6 +22,7 @@ import {
   Button,
   ButtonGroup,
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import useStyles from "./style";
@@ -29,6 +30,7 @@ function ImageUpload() {
   const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
+  const [imageListBackup, setImageListBackup] = useState({});
   const [sortedImageList, setSortedImageList] = useState([]);
   // const [selectedImages, setSelectedImages] = useState([]);
   const { userId, albumName } = useParams();
@@ -38,11 +40,14 @@ function ImageUpload() {
   const aRef = useRef(null);
   let unsortedKeys=[]
   const fetchImages = async () => {
+    setSortedImageList([])
+    setImageList({})
     try {
       const datas = await getDoc(data);
       console.log(datas);
-      Object.keys(datas.data()).forEach((name) => {
+      Object.keys(datas.data()).map((name) => {
         setImageList((prev) => ({ ...prev, [name]: datas.data()[name] }));
+        setImageListBackup((prev) => ({ ...prev, [name]: datas.data()[name] }));
         setSortedImageList((prev)=> ([...prev, name]))
         // unsortedKeys.push(name)
       });
@@ -53,16 +58,21 @@ function ImageUpload() {
   useEffect(() => {
     fetchImages();
   }, []);
+  useEffect(() => {
+    sort()
+  }, [fetchImages]);
+
+
 
   // console.log(imageList)
-  // const sort= ()=>{
-  //   unsortedKeys=sortedImageList
-  //   unsortedKeys.sort()
-  //   console.log("sorteddd"+unsortedKeys)
-  //   setSortedImageList(unsortedKeys)
-  //   // setSortedImageList(unsortedKeys)
-  // }
-  // console.log(sortedImageList)
+  const sort= ()=>{
+    unsortedKeys=sortedImageList
+    unsortedKeys.sort()
+    console.log("sorteddd"+unsortedKeys)
+    setSortedImageList(unsortedKeys)
+    setImageList(unsortedKeys)
+  }
+  console.log(sortedImageList)
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
@@ -75,6 +85,7 @@ function ImageUpload() {
       uploadBytes(imageRef, image).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
           setImageList((prev) => ({ ...prev, [name.split(".")[0]]: url }));
+          setImageListBackup((prev) => ({ ...prev, [name.split(".")[0]]: url }));
           setSortedImageList((prev) => ([ ...prev, [name.split(".")[0]] ]));
           let newName = image.name.split(".")[0];
           obj[newName] = url;
@@ -104,18 +115,6 @@ function ImageUpload() {
       })
       .catch(() => alert("oh no!"));
   };
-
-  // const deleteImage = (test) => {
-  //   let cost = test;
-  //   setImageList((current) => {
-  //     // remove cost key from object
-  //     const copy = { ...current };
-  //     delete copy[test];
-  //     return copy;
-  //   });
-  // };
-
-  // const checkedImages = () => {};
 
   const downloadSelected = () => {
     let checkboxes = document.querySelectorAll(".checkbox");
@@ -185,20 +184,26 @@ function ImageUpload() {
     })
     let copyImageSet=imageList
    Reflect.deleteProperty(copyImageSet,entry)
-   setImageList(copyImageSet)
+  //  setImageList(copyImageSet)
+  setImageList({});
+  setSortedImageList([])
    fetchImages()
     // await setWorms(worms.filter((worm) => worm !== entry));
     // await setWormsBackup(worms.filter((worm) => worm !== entry));
   }
-
+  const maxImageName =(name)=>{
+    if (name.length<21){
+      return name
+    } 
+ return name.substring(0,20)+"..."
+  }
   return (
     <div className="App">
             <AddAPhotoIcon
         fontSize="large"
         id="newPhotoImage"
         onClick={() => show("newPhotoArea", "newPhotoImage")}
-      />
-      {/* <button onClick={sort}>sort</button> */}
+        />
       <div id="newPhotoArea" style={{display:"none"}}>
       <input
         type="file"
@@ -207,7 +212,7 @@ function ImageUpload() {
         onChange={(e) => {
           setUploadImages(e.target.files);
         }}
-      />
+        />
       <button onClick={handleUpload}>Upload </button>
         </div>
       <div>
@@ -221,36 +226,47 @@ function ImageUpload() {
       <Container className={classes.cardImageGrid} maxWidth="md">
         <Grid container spacing={4}>
         {sortedImageList.map((name) => (
-                <Grid item key={name + v4()} xs={12} sm={6} md={4} lg={4} className={name}>
+          <Grid item key={name + v4()} xs={12} sm={6} md={4} lg={4} className={name}>
                   <Card className={classes.image}>
+                    {/* {console.log(imageList[name])} */}
+                    {/* {console.log("imageList"+imageList[name])} */}
+                    <input
+                  type={"checkbox"}
+                  className={"checkbox"}
+                  id={name}
+                  />
                     <CardMedia
                       className={classes.cardImageMedia}
-                      image={imageList[name]}
+                      image={imageListBackup[name]}
                       title="Image title"
                     />
                     {/* <CardContent className={classes.cardContent}>
                 </CardContent> */}
-                <CardActions>
-            <Link
-              state={{
-                imageLink: `${imageList[name]}`,
-                folder: `${albumName}`,
-              }}
-              to={`/${userId}/albums/${albumName}/photo/${name}`}
-              key={name}
-            >{name}
-              </Link>
+                <CardActions id="imageDetails">
+                  <span>
+
                 <DownloadIcon 
                         fontSize="medium"
                         id="downloadIcon"
                         onClick={ (e) => download(name)}>
                 </DownloadIcon>
-                <input
-              type={"checkbox"}
-              className={"checkbox"}
-              id={name}
-            />
-            <div onClick={()=>deleteImage(name)}>X</div>
+                          </span>
+            <Link
+              state={{
+                imageLink: `${imageListBackup[name]}`,
+                folder: `${albumName}`,
+              }}
+              to={`/${userId}/albums/${albumName}/photo/${name}`}
+              key={name}
+            >
+              <p>
+                {maxImageName(name)}
+                </p>
+              </Link>
+            <DeleteIcon
+            onClick={()=>deleteImage(name)}
+            className="deleteIcon"
+            ></DeleteIcon>
                 </CardActions>
                   </Card>
                 </Grid> 

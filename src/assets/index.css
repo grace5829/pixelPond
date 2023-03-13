@@ -12,7 +12,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #c5b7d4;
+  background-color: #DDC4DD;
 }
 
 code {
@@ -71,7 +71,7 @@ code {
 } */
 
 .checkbox{
-float: left;}
+position: absolute;}
 
 .imageAreaTop, .imageAreaBottom {
   display: flex;
@@ -104,10 +104,17 @@ float: left;}
 height: 5vh;}
 
 
-.fa-download:hover, .checkbox{
+#downloadIcon:hover,.deleteIcon:hover, .checkbox{
   cursor: pointer;
 }
-
+#imageDetails{
+display: flex;
+justify-content: space-between;
+}
+.deleteIcon{
+  position: relative;
+  right: 5px;
+}
 
 button {
   font-size: 10px;
@@ -136,4 +143,7 @@ button::after {
 button:hover::after {
   top: 0px;
   left: 0px;
+}
+a:visited, a:active,a{
+  color: rgb(9, 12, 14);
 }

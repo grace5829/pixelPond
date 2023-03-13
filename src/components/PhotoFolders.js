@@ -1,6 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { auth, db } from "../firebase-config";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import {
@@ -17,6 +24,8 @@ import {
   Button,
   ButtonGroup,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import CreateNewFolderOutlinedIcon from "@mui/icons-material/CreateNewFolderOutlined";
 import useStyles from "./style";
 
@@ -26,7 +35,7 @@ function PhotoFolders() {
   const [folders, setFolders] = useState([]);
   const [newFolder, setNewFolder] = useState("");
   const albums = collection(db, `albums/${userId}/personalAlbums`);
-  
+
   let nameNewFolder = { folder: newFolder };
   useEffect(() => {
     fetchAlbums();
@@ -34,9 +43,9 @@ function PhotoFolders() {
 
   const fetchAlbums = async () => {
     let albumFolders = await getDocs(albums);
-    console.log(albumFolders.docs[0].data())
+    console.log(albumFolders.docs[0].data());
     setFolders((prev) =>
-    albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id }))
+      albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id }))
     );
   };
 
@@ -46,28 +55,33 @@ function PhotoFolders() {
       {}
     );
     setFolders((prev) => [...prev, nameNewFolder]);
-    show("newFolderArea", "newFolder")
+    setNewFolder("");
+    show("newFolderArea", "newFolder");
   };
 
   const show = (hiddenEle, shownEle) => {
     const x = document.getElementById(`${hiddenEle}`);
     const y = document.getElementById(`${shownEle}`);
-    (x.style.display === "none" ?
-      x.style.display = "block":
-      x.style.display = "none")
-    
- (y.style.display === "none" ?
-      y.style.display = "block": 
-      y.style.display = "none"
- )
+    (x.style.display === "none"
+      ? (x.style.display = "block")
+      : (x.style.display = "none"))(
+      y.style.display === "none"
+        ? (y.style.display = "block")
+        : (y.style.display = "none")
+    );
   };
 
-  let randomProperty =  function (obj) {
+  let randomProperty = function (obj) {
     let keys = Object.keys(obj);
-    keys.pop()
-    return `${obj[keys[ keys.length * Math.random() << 0]]}`;
-};
-
+    keys.pop();
+    return `${obj[keys[(keys.length * Math.random()) << 0]]}`;
+  };
+  async function deleteFolder(albumName) {
+    // const data = doc(db, "worms", props.userId, "journal", entry.id);
+    const data = doc(db, "albums", userId, "personalAlbums", albumName);
+    await deleteDoc(data);
+    fetchAlbums();
+  }
   return (
     <div>
       <div className={classes.container}>
@@ -90,7 +104,7 @@ function PhotoFolders() {
           </Typography>
         </Container>
       </div>
-      <div id="newFolderArea" style={{display:"none"}}>
+      <div id="newFolderArea" style={{ display: "none" }}>
         <button onClick={(evt) => handleNewFolder()}>Add folder</button>
         <input
           value={newFolder}
@@ -102,8 +116,7 @@ function PhotoFolders() {
         id="newFolder"
         onClick={() => show("newFolderArea", "newFolder")}
       />
-      <div className="folderArea">
-      </div>
+      <div className="folderArea"></div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
           {folders.map((card) => (
@@ -111,9 +124,17 @@ function PhotoFolders() {
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
-                  image= {Object.keys(card).length>1?  randomProperty(card) :"https://t3.ftcdn.net/jpg/04/84/88/76/360_F_484887682_Mx57wpHG4lKrPAG0y7Q8Q7bJ952J3TTO.jpg"}
+                  image={
+                    Object.keys(card).length > 1
+                      ? randomProperty(card)
+                      : "https://t3.ftcdn.net/jpg/04/84/88/76/360_F_484887682_Mx57wpHG4lKrPAG0y7Q8Q7bJ952J3TTO.jpg"
+                  }
                   title="Image title"
                 />
+                <DeleteIcon
+                  onClick={() => deleteFolder(card.folder)}
+                  className="deleteIcon"
+                ></DeleteIcon>
                 <CardContent className={classes.CardContent}>
                   <Link
                     key={card.folder}

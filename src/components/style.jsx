@@ -4,7 +4,7 @@ const useStyles = makeStyles()((theme) => {
   return {
     container: {
       // backgroundColor: theme.palette.secondary.light,
-      backgroundColor: "#F7E2D9",
+      backgroundColor: "#f5a3e6",
       padding: theme.spacing(8, 0, 6),
       // marginRight: theme.spacing(2)
     },
