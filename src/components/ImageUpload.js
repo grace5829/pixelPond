@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { db, storage } from "../firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
-import { collection, deleteDoc, deleteField, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, deleteField, doc, getDoc, limit, orderBy, updateDoc } from "firebase/firestore";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import { Link, useParams } from "react-router-dom";
@@ -26,6 +26,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import useStyles from "./style";
+import { query } from "firebase/database";
 function ImageUpload() {
   const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
@@ -44,7 +45,6 @@ function ImageUpload() {
     setImageList({})
     try {
       const datas = await getDoc(data);
-      console.log(datas);
       Object.keys(datas.data()).map((name) => {
         setImageList((prev) => ({ ...prev, [name]: datas.data()[name] }));
         setImageListBackup((prev) => ({ ...prev, [name]: datas.data()[name] }));
