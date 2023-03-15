@@ -5,19 +5,32 @@ import { storage } from "../firebase-config";
 import { UserAuth } from "./AuthContext";
 function Home() {
   const { user } = UserAuth();
-console.log(user)
+// console.log(user)
   return (
     <div>
-      <h1>
-        Story of my life                             
+      <h1 className="appName">
+      Pixel Pond                          
       </h1>   
     {user? 
-    <div>Welcome {user.displayName}, this is your private online photo gallery!</div>: 
-    <div>Log in to start your journey!</div>
+    <div className="homeText">Welcome {user.displayName}!</div>: 
+    <div className="homeText">Log in to create your legacy, one photo at a time</div>
     }
+    <div className="homeText">
+    Unlock your memories, with just a click!
     <div>
-      The beginning of your story starts here!
+    {user ? 
+    <Link to={`/${user.uid}/photoFolders`}>
+          <img className="homeImage" src={require("../images/brain.png")}/>
+    </Link>
+     : 
+        <Link to="/LogIn" >
+              <img className="homeImage" src={require("../images/brain.png")}/>
+    </Link>
+      }
+
     </div>
+
+        </div>
        </div>
   );
 }

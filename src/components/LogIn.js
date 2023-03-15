@@ -22,7 +22,7 @@ function LogIn() {
     }
     },[user])
 return (
-    <div>
+    <div className="login">
 <GoogleButton onClick={handleGoogleSignIn}/>
     </div>
   );

@@ -27,6 +27,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import useStyles from "./style";
 import { query } from "firebase/database";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 function ImageUpload() {
   const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
@@ -114,6 +116,17 @@ function ImageUpload() {
         window.URL.revokeObjectURL(url);
       })
       .catch(() => alert("oh no!"));
+
+      toast.success(`${fileName} download complete`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
   };
 
   const downloadSelected = () => {
@@ -135,12 +148,25 @@ function ImageUpload() {
       zip.generateAsync({ type: "blob" }).then((content) => {
         saveAs(content, `StoryOfMyLife.zip`);
       });
-    });
+    }).then(
+      toast.success(`Selected images downloaded`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+    );
+
     for (let checkbox of checkboxes) {
       if (checkbox.checked) {
         checkbox.checked = false;
       }
     }
+   
   };
 
   const downloadAll = async () => {
@@ -162,7 +188,18 @@ function ImageUpload() {
       zip.generateAsync({ type: "blob" }).then((content) => {
         saveAs(content, `StoryOfMyLife.zip`);
       });
-    });
+    }).then(
+      toast.success(`All images downloaded`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+    )
   };
 
   const show = (hiddenEle, shownEle) => {
@@ -198,6 +235,7 @@ function ImageUpload() {
  return name.substring(0,20)+"..."
   }
   return (
+    <>
     <div className="App">
             <AddAPhotoIcon
         fontSize="large"
@@ -216,9 +254,7 @@ function ImageUpload() {
       <button onClick={handleUpload}>Upload </button>
         </div>
       <div>
-        {/* {selectedImages==={}? <></>: Object.keys(imageList).map((name)=>{
-          <div>{name} </div>
-        })} */}
+
         <button onClick={downloadSelected}>Download selected </button>
         <button onClick={(e) => downloadAll(e)}>Download All </button>
       </div>
@@ -253,6 +289,7 @@ function ImageUpload() {
                           </span>
             <Link
               state={{
+                imageName:`${name}`,
                 imageLink: `${imageListBackup[name]}`,
                 folder: `${albumName}`,
               }}
@@ -298,7 +335,11 @@ function ImageUpload() {
         </Grid>
       </Container>
       {/* </div> */}
+
     </div>
+      <ToastContainer />
+      
+      </>
   );
 }
 

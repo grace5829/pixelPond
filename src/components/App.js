@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import useStyles from "./style";
+import { ToastContainer } from "react-toastify";
 const cards=[1,2,3,4,5,6,7,8,9]
 function App() {
   
@@ -92,6 +93,8 @@ function App() {
         </footer>
       </CssBaseline>  */}
       <AppRoutes />
+      <ToastContainer />
+
     </div>
   );
 }

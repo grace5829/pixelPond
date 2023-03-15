@@ -1,12 +1,25 @@
 import { Widgets } from "@mui/icons-material";
+import { padding } from "@mui/system";
 import { makeStyles } from "tss-react/mui";
 const useStyles = makeStyles()((theme) => {
   return {
     container: {
       // backgroundColor: theme.palette.secondary.light,
       backgroundColor: "#f5a3e6",
-      padding: theme.spacing(8, 0, 6),
+      padding: theme.spacing(4, 0, 2),
       // marginRight: theme.spacing(2)
+    },
+    photoAlbumName:{
+        fontFamily:'papyrus',
+        fontSize:'3rem',
+        fontWeight:'bold',
+        color:'#679df4',
+    },
+    folderName:{
+        fontFamily:'papyrus',
+        fontSize:'1.5rem',
+        fontWeight:'bold',
+        // color:'#e08cf5',
     },
     icon: {
         marginRight:'20px',
@@ -46,7 +59,13 @@ const useStyles = makeStyles()((theme) => {
         backgroundColor:theme.palette.primary.main,
         padding:'20px 0'
     },
-
+    cardTitle:{
+        // padding:'2px',
+        backgroundColor:'#b8d5f6',
+        display:'flex',
+        justifyContent:'center',
+        // alignContent:'center'
+    },
   };
 });
 export default useStyles;

@@ -18,6 +18,7 @@ import {
 import useStyles from "./style";
 
 function EachImage(props) {
+
   const { userId,imageName } = useParams();
   const location = useLocation();
   const { imageLink, folder } = location.state;
@@ -42,12 +43,15 @@ function EachImage(props) {
 
   return (
     <div>
-      <h1>Each Image</h1>
+      <h1>{imageName}</h1>
       <Link to={`/${userId}/albums/${folder}`}>
         <div>Back</div>
       </Link>
-      <img src={imageLink} className={"singleImage"} />
+      <div>
+
       <button onClick={(e) => download(e)}>Download</button>
+      <img src={imageLink} className={"singleImage"} />
+      </div>
     </div>
   );
 }

@@ -85,23 +85,17 @@ function PhotoFolders() {
   return (
     <div>
       <div className={classes.container}>
-        <Container maxWidth="sm">
-          <Typography
+        <Container maxWidth="sm"
+          className={classes.photoAlbumName}
+        >
+          {/* <Typography
             variant="h2"
             align="center"
             color="textPrimary"
             gutterBottom
-          >
+          > */}
             Photo Albums
-          </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            color="textSecondary"
-            paragraph
-          >
-            Your magical memories
-          </Typography>
+          {/* </Typography> */}
         </Container>
       </div>
       <div id="newFolderArea" style={{ display: "none" }}>
@@ -122,6 +116,10 @@ function PhotoFolders() {
           {folders.map((card) => (
             <Grid item key={card + v4()} xs={4} md={4}>
               <Card className={classes.card}>
+                <DeleteIcon
+                  onClick={() => deleteFolder(card.folder)}
+                  className="deleteIconFolders"
+                ></DeleteIcon>
                 <CardMedia
                   className={classes.cardMedia}
                   image={
@@ -131,23 +129,15 @@ function PhotoFolders() {
                   }
                   title="Image title"
                 />
-                <DeleteIcon
-                  onClick={() => deleteFolder(card.folder)}
-                  className="deleteIcon"
-                ></DeleteIcon>
-                <CardContent className={classes.CardContent}>
+                <CardContent className={classes.cardTitle}>
                   <Link
                     key={card.folder}
                     to={`/${userId}/albums/${card.folder}`}
                   >
-                    <Typography gutterBottom variant="h5">
+                    <Typography variant="h5" className={classes.folderName}>
                       {card.folder}
                     </Typography>
-                  </Link>
-                  <Typography>
-                    {" "}
-                    This is a media card. You can use to describe content
-                  </Typography>
+                  </Link> 
                 </CardContent>
               </Card>
             </Grid>

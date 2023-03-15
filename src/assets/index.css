@@ -3,13 +3,14 @@
   padding: 0;
   box-sizing: border-box;
 }
-/* .App{
-} */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    sans-serif; */
+    font-family: 'papyrus';
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #DDC4DD;
@@ -19,19 +20,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+.logo{
+  height: 6vh;
+}
+.appName{
+  font-size: 4rem;
+  color: #f48df4;
+}
+.homeText{
+  font-size: 2rem;
+  color: #679df4;
+}
+.login{
+  display: flex;
+justify-content: center;}
 .allImagesArea {
-  /* display: grid;
-  grid-template-columns: 16vw 16vw 16vw 16vw 18vw; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 2vh;
   margin-left: 2vw;
-  
-  /* background-color: rgba(181, 213, 226, 0.673);
-  margin-right: 2vw;
-  padding: 20px; */
 }
 .oneAllImages {
   margin-left: auto;
@@ -43,7 +51,6 @@ code {
 
 .imageButton {
   height: 3vh;
-  /* width: ; */
   position: relative;
   top: 0px;
 }
@@ -55,11 +62,7 @@ code {
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
-  /* height: 60vh;  */
   margin: 2px;
-  /* opacity: 0.8;
-  border-radius: 12px; */
-  /* border: 2px solid rgb(245, 245, 245); */
   border-radius: 15px;
   background-color: rgba(253, 253, 252, 0.844);
   box-shadow: 0 0 10px rgba(154, 200, 233, 0.852);
@@ -80,9 +83,7 @@ position: absolute;}
   padding: 2px;
   width: 100%;
 }
-.imageAreaTop{
 
-}
 .eachImageName {
   font-size: 12px;
   margin-right: 5px;
@@ -101,8 +102,9 @@ position: absolute;}
   margin-bottom: 3vh;
 }
 #newFolderArea{
-height: 5vh;}
-
+height: 5vh;
+left: 0;
+}
 
 #downloadIcon:hover,.deleteIcon:hover, .checkbox{
   cursor: pointer;
@@ -114,6 +116,9 @@ justify-content: space-between;
 .deleteIcon{
   position: relative;
   right: 5px;
+}
+.deleteIconFolders{
+  position: absolute;
 }
 
 button {
