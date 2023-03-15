@@ -87,6 +87,17 @@ a{
       font-weight: 100;
       letter-spacing: 1px;
       padding: 8px 10px 6px;
-      margin-left: 4px;
+      /* margin-left: 4px; */
+
+    }
+  }
+  @media screen and (max-width: 300px) {
+    .navLink {
+      font-size: 10px;
+      /* font-weight: 100; */
+      letter-spacing: 1px;
+      padding: 4px 5px 3px;
+      /* margin-left: 4px; */
+      height: 22px;
     }
   }

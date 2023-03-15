@@ -277,6 +277,9 @@ a:visited, a:active,a{
     padding-left: 10px;
   }
 }
+@media screen and (max-width: 300px) {
+ 
+}
 @media screen and (max-width: 200px) {
   #popupTop{
     display: flex;
