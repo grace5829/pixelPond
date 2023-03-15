@@ -34,27 +34,28 @@ code {
 .login{
   display: flex;
 justify-content: center;}
-.allImagesArea {
+
+/* .allImagesArea {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 2vh;
   margin-left: 2vw;
-}
-.oneAllImages {
+} */
+/* .oneAllImages {
   margin-left: auto;
   margin-right: auto;
   height: 30vh;
   width: auto;
   border-radius: 5px;
-}
+} */
 
-.imageButton {
+/* .imageButton {
   height: 3vh;
   position: relative;
   top: 0px;
-}
-.eachImageArea {
+} */
+/* .eachImageArea {
   display: block;
   display: flex;
   padding: auto;
@@ -66,7 +67,7 @@ justify-content: center;}
   border-radius: 15px;
   background-color: rgba(253, 253, 252, 0.844);
   box-shadow: 0 0 10px rgba(154, 200, 233, 0.852);
-}
+} */
 /* .eachImageArea img:hover {
   background-color: rgba(255, 255, 255);
   text-align: center;
@@ -76,25 +77,38 @@ justify-content: center;}
 .checkbox{
 position: absolute;}
 
-.imageAreaTop, .imageAreaBottom {
+/* .imageAreaTop, .imageAreaBottom {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 2px;
   width: 100%;
-}
+} */
 
-.eachImageName {
+/* .eachImageName {
   font-size: 12px;
   margin-right: 5px;
-}
+} */
 .singleImage {
   display: block;
-  width: 50vw;
+  max-height: 80vh;
+  max-width: 60vw;
   margin-left: auto;
   margin-right: auto;
 }
-
+#arrowArea{
+  display: flex;
+  justify-content: space-between;
+}
+.arrow{
+  font-size: large;
+  color: rgb(125, 156, 242);
+  /* position: fixed; */
+  /* padding: 10px; */
+}
+#popupName{
+  color: #679df4;
+}
 #newFolder{
   display: block;
   cursor: pointer;
@@ -106,7 +120,7 @@ height: 5vh;
 left: 0;
 }
 
-#downloadIcon:hover,.deleteIcon:hover, .checkbox{
+#downloadIcon:hover,.deleteIcon:hover, .checkbox, #imageName{
   cursor: pointer;
 }
 #imageDetails{
@@ -152,4 +166,34 @@ button:hover::after {
 }
 a:visited, a:active,a{
   color: rgb(9, 12, 14);
+}
+
+.popup{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(12, 12, 12, 0.944);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+.popup-inner{
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  max-width: 640px;
+  background-color: rgba(250, 159, 232, 0.56);
+}
+.popup-inner .close-btn{
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+#popupTop{
+  display: flex;
+  padding-top: 5px;
+  justify-content: space-between;
 }

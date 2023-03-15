@@ -19,9 +19,10 @@ import useStyles from "./style";
 
 function EachImage(props) {
 
-  const { userId,imageName } = useParams();
+  // const { userId,imageName } = useParams();
   const location = useLocation();
-  const { imageLink, folder } = location.state;
+  const { imageName, imageLink, folder } = props
+  // console.log(folder)
   const download = async () => {
     fetch(imageLink)
       .then((resp) => resp.blob())
@@ -41,19 +42,27 @@ function EachImage(props) {
   };
 
 
-  return (
-    <div>
-      <h1>{imageName}</h1>
-      <Link to={`/${userId}/albums/${folder}`}>
-        <div>Back</div>
-      </Link>
-      <div>
+return (props.trigger)?(
+<div className="popup">
+<div className="popup-inner">
 
-      <button onClick={(e) => download(e)}>Download</button>
-      <img src={imageLink} className={"singleImage"} />
-      </div>
+    <div>
+
+  {/* <button onClick={(e) => download(e)}>Download</button> */}
+   <img src={imageLink} className={"singleImage"} />
     </div>
-  );
+  {props.children}
+</div>
+</div>
+
+):""
+
+  // return (
+  //   <div>
+  //     <h1>{imageName}</h1>
+  //
+  //   </div>
+  // );
 }
 
 export default EachImage;

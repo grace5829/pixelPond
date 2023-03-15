@@ -29,10 +29,14 @@ import useStyles from "./style";
 import { query } from "firebase/database";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+import EachImage from "./EachImage";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 function ImageUpload() {
   const {classes}=useStyles()
   const [uploadImages, setUploadImages] = useState(null);
   const [imageList, setImageList] = useState({});
+  const [imageTriggerPopup, setImageTriggerPopup] = useState({});
   const [imageListBackup, setImageListBackup] = useState({});
   const [sortedImageList, setSortedImageList] = useState([]);
   // const [selectedImages, setSelectedImages] = useState([]);
@@ -51,12 +55,14 @@ function ImageUpload() {
         setImageList((prev) => ({ ...prev, [name]: datas.data()[name] }));
         setImageListBackup((prev) => ({ ...prev, [name]: datas.data()[name] }));
         setSortedImageList((prev)=> ([...prev, name]))
+        setImageTriggerPopup((prev)=>({...prev,[name]:false}))
         // unsortedKeys.push(name)
       });
     } catch (error) {
       console.log(error);
     }
   };
+  // console.log(imageTriggerPopup)
   useEffect(() => {
     fetchImages();
   }, []);
@@ -64,17 +70,12 @@ function ImageUpload() {
     sort()
   }, [fetchImages]);
 
-
-
-  // console.log(imageList)
   const sort= ()=>{
     unsortedKeys=sortedImageList
     unsortedKeys.sort()
-    console.log("sorteddd"+unsortedKeys)
     setSortedImageList(unsortedKeys)
     setImageList(unsortedKeys)
   }
-  console.log(sortedImageList)
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
@@ -89,6 +90,8 @@ function ImageUpload() {
           setImageList((prev) => ({ ...prev, [name.split(".")[0]]: url }));
           setImageListBackup((prev) => ({ ...prev, [name.split(".")[0]]: url }));
           setSortedImageList((prev) => ([ ...prev, [name.split(".")[0]] ]));
+          setImageTriggerPopup((prev)=>({...prev,[name]:false}))
+
           let newName = image.name.split(".")[0];
           obj[newName] = url;
           // updateDoc allows us to override info in DB or add info without erasing previously data
@@ -100,9 +103,10 @@ function ImageUpload() {
     aRef.current.value = null;
     show("newPhotoArea", "newPhotoImage")
   };
-
+// console.log(imageList)
   const download = async (fileName) => {
-    fetch(imageList[fileName])
+    console.log(imageListBackup[fileName])
+    fetch(imageListBackup[fileName])
       .then((resp) => resp.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
@@ -139,7 +143,7 @@ function ImageUpload() {
     }
     var zip = new JSZip();
     const remoteZips = downloadThese.map(async (image) => {
-      const response = await fetch(imageList[image]);
+      const response = await fetch(imageListBackup[image]);
       const data = await response.blob();
       zip.file(`${image}.jpeg`, data);
       return data;
@@ -173,9 +177,9 @@ function ImageUpload() {
     var zip = new JSZip();
 
     // block.packages is an array of items from the CMS
-    const remoteZips = Object.keys(imageList).map(async (image) => {
+    const remoteZips = Object.keys(imageListBackup).map(async (image) => {
       // pack.file.url is the URL for the .zip hosted on the CMS
-      const response = await fetch(imageList[image]);
+      const response = await fetch(imageListBackup[image]);
       const data = await response.blob();
 
       // pack.kitName is from a loop, replace with your file name.
@@ -234,6 +238,35 @@ function ImageUpload() {
     } 
  return name.substring(0,20)+"..."
   }
+  const triggerPopup=(name)=>{
+// let x=document.getElementById( `1test`)
+(imageTriggerPopup[name]===false? 
+  setImageTriggerPopup((prev)=> ({...prev, [name]:true})) : 
+setImageTriggerPopup((prev)=> ({...prev, [name]:false})))
+}
+
+const previousPopup= (name)=>{
+  // console.log(sortedImageList[sortedImageList.indexOf(name)-1])
+  let previous= sortedImageList[sortedImageList.indexOf(name)-1]
+  
+  triggerPopup(name)
+  if (previous){
+      triggerPopup(previous)
+    } else {
+triggerPopup(sortedImageList[sortedImageList.length-1])
+    }
+}
+const nextPopup= (name)=>{
+  // console.log(sortedImageList[sortedImageList.indexOf(name)-1])
+  let next= sortedImageList[sortedImageList.indexOf(name)+1]
+  
+  triggerPopup(name)
+  if (next){
+      triggerPopup(next)
+    } else {
+triggerPopup(sortedImageList[0])
+    }
+}
   return (
     <>
     <div className="App">
@@ -287,7 +320,7 @@ function ImageUpload() {
                         onClick={ (e) => download(name)}>
                 </DownloadIcon>
                           </span>
-            <Link
+            {/* <Link
               state={{
                 imageName:`${name}`,
                 imageLink: `${imageListBackup[name]}`,
@@ -295,11 +328,27 @@ function ImageUpload() {
               }}
               to={`/${userId}/albums/${albumName}/photo/${name}`}
               key={name}
-            >
-              <p>
+            > */}
+              <p id="imageName" onClick={()=>triggerPopup(name)}>
                 {maxImageName(name)}
+
                 </p>
-              </Link>
+                <EachImage  trigger={imageTriggerPopup[name]}
+                imageName={name}
+                imageLink={imageListBackup[name]}
+                folder={albumName}
+              >
+                <div id="arrowArea">
+<ArrowBackIosNewIcon className="arrow" onClick={()=>previousPopup(name)}/>
+<ArrowForwardIosIcon className="arrow" onClick={()=>nextPopup(name)}/>
+                </div>
+                <div id="popupTop">
+                  <button onClick={(e) => download(name)}>Download</button>
+                <h3 id="popupName">{name} </h3>
+                <button onClick={()=>triggerPopup(name)}> close</button>
+                </div>
+              </EachImage>
+              {/* </Link> */}
             <DeleteIcon
             onClick={()=>deleteImage(name)}
             className="deleteIcon"
