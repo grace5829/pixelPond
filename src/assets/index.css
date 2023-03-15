@@ -91,10 +91,16 @@ position: absolute;}
 } */
 .singleImage {
   display: block;
+  /* padding-top: auto; */
   max-height: 80vh;
   max-width: 60vw;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+}
+.singleImageArea{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #arrowArea{
   display: flex;
@@ -120,7 +126,7 @@ height: 5vh;
 left: 0;
 }
 
-#downloadIcon:hover,.deleteIcon:hover, .checkbox, #imageName{
+#downloadIcon:hover,.deleteIcon:hover, .checkbox, #imageName, .arrow{
   cursor: pointer;
 }
 #imageDetails{
@@ -182,9 +188,9 @@ a:visited, a:active,a{
 }
 .popup-inner{
   position: relative;
-  padding: 32px;
+  padding: 50px;
   width: 100%;
-  max-width: 640px;
+  max-width: 740px;
   background-color: rgba(250, 159, 232, 0.56);
 }
 .popup-inner .close-btn{
@@ -196,4 +202,91 @@ a:visited, a:active,a{
   display: flex;
   padding-top: 5px;
   justify-content: space-between;
+}
+
+.homeImage{
+  width: 80vw;
+}
+@media screen and (max-width: 768px) {
+  .logo{
+    height: 3vh;
+  }
+  .appName{
+    font-size: 3rem;
+    color: #f48df4;
+  }
+  .singleImage {
+    display: block;
+    padding-top: auto;
+    max-height: 80vh;
+    max-width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .homeText{
+    font-size: 1.5rem;
+    color: #679df4;
+  }
+  button {
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    padding: 5px 20px 8px;
+    margin-left: 5px;
+  
+  }
+}
+@media screen and (max-width: 500px) {
+  button {
+    font-size: 7px;
+    font-weight:100;
+    letter-spacing: 1px;
+    padding: 5px 8px 8px;
+  }
+  button::after {
+    content: "";
+    background-color: #f5a3e6;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 6px;
+    left: 7px;
+    transition: 0.2s;
+  }
+  button:hover::after {
+    top: 0px;
+    left: 0px;
+  }
+  #popupName{
+    color: #679df4;
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 400px) {
+  #popupTop{
+    display: flex;
+    padding-top: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #popupName{
+    color: #679df4;
+    font-size: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+  }
+}
+@media screen and (max-width: 200px) {
+  #popupTop{
+    display: flex;
+    padding-top: 5px;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+  }
+  #popupName{
+    color: #679df4;
+    font-size: 8px;
+    padding-top: 10px;
+  }
 }

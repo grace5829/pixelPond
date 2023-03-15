@@ -49,7 +49,9 @@ const useStyles = makeStyles()((theme) => {
     },
     cardImageMedia:{
         // height: "250px", 
-        paddingTop: "56.25%" 
+        paddingTop: "56.25%", 
+        // display:'flex',
+        // alignItems:'center',
         // paddingTop:'100%', //16:9 ratio
     },
     cardContent:{

@@ -49,10 +49,10 @@ a{
     left: 0px;
   } */
 .navLink {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 200;
     letter-spacing: 1px;
-    padding: 5px 20px 8px;
+    padding: 17px 15px 4px;
     margin-left: 5px;
     outline: 0;
     border: 1px solid black;
@@ -79,4 +79,14 @@ a{
 
   #navRight{
    margin-left: auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    .navLink {
+      font-size: 13px;
+      font-weight: 100;
+      letter-spacing: 1px;
+      padding: 8px 10px 6px;
+      margin-left: 4px;
+    }
   }

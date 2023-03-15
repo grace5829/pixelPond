@@ -114,7 +114,7 @@ function PhotoFolders() {
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
           {folders.map((card) => (
-            <Grid item key={card + v4()} xs={4} md={4}>
+            <Grid item key={card + v4()} xs={12} sm={6} md={4} lg={3}>
               <Card className={classes.card}>
                 <DeleteIcon
                   onClick={() => deleteFolder(card.folder)}

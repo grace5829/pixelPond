@@ -46,7 +46,7 @@ return (props.trigger)?(
 <div className="popup">
 <div className="popup-inner">
 
-    <div>
+    <div className="singleImageArea">
 
   {/* <button onClick={(e) => download(e)}>Download</button> */}
    <img src={imageLink} className={"singleImage"} />

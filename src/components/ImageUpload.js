@@ -295,7 +295,7 @@ triggerPopup(sortedImageList[0])
       <Container className={classes.cardImageGrid} maxWidth="md">
         <Grid container spacing={4}>
         {sortedImageList.map((name) => (
-          <Grid item key={name + v4()} xs={12} sm={6} md={4} lg={4} className={name}>
+          <Grid item key={name + v4()} xs={12} sm={6} md={4} lg={3} className={name}>
                   <Card className={classes.image}>
                     {/* {console.log(imageList[name])} */}
                     {/* {console.log("imageList"+imageList[name])} */}
