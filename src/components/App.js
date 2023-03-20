@@ -1,27 +1,8 @@
-import { Link, useParams } from "react-router-dom";
-import { auth, db } from "../firebase-config";
-import { AppRoutes, Navbar, PhotoFolders } from "./index";
-import {
-  Typography,
-  AppBar,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CssBaseline,
-  Grid,
-  Toolbar,
-  Container,
-  Button,
-  ButtonGroup,
-} from "@mui/material";
-import { PhotoCamera } from "@mui/icons-material";
-import useStyles from "./style";
+import { AppRoutes} from "./index";
 import { ToastContainer } from "react-toastify";
-const cards=[1,2,3,4,5,6,7,8,9]
+
 function App() {
   
-  // const {classes}=useStyles()
   return (
     <div className="App">
        {/* <CssBaseline>

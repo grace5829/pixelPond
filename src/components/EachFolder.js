@@ -1,4 +1,3 @@
-// import logo from './assets/logo.svg';
 import { useParams } from "react-router-dom";
 import "../assets/App.css";
 import { ImageUpload } from "./index";
