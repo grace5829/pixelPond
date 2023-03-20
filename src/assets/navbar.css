@@ -1,103 +1,70 @@
-#topNav{
-    display: flex;
-    flex-direction: row;
-    gap: 15px ;
-    font-weight: 200;
-    letter-spacing: 1px;
-    /* background-color: rgb(178, 93, 244); */
-    color: rgb(0, 0, 0);
-    font-family: 'Bold';
-    padding: 5px;
+#topNav {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  color: rgb(0, 0, 0);
+  font-family: "Bold";
+  padding: 5px;
 }
 
-a{
-    text-decoration: none; 
+a {
+  text-decoration: none;
 }
 
-#logOut{
-    cursor: pointer;
-    font-size: .6rem;
-    letter-spacing: 0px;
-
+#logOut {
+  cursor: pointer;
+  font-size: 0.6rem;
+  letter-spacing: 0px;
 }
-/* #logOut{
-    font-size: 11px;
-    font-weight: 200;
-    letter-spacing: 1px;
-    padding: 3px 10px 3px;
-    margin-left: 5px;
-    outline: 0;
-    border: 1px solid rgba(42, 40, 40, 0.588);
-    cursor: pointer;
-    position: relative;
-    background-color: rgba(0, 0, 0, 0);
-  }
-  
-  #logOut::after {
-    content: "";
-    background-color: #b8d5f6;
-    width: 100%;
-    z-index: -1;
-    position: absolute;
-    height: 100%;
-    top: 6px;
-    left: 7px;
-    transition: 0.2s;
-  }
-  #logOut:hover::after {
-    top: 0px;
-    left: 0px;
-  } */
+
 .navLink {
-    font-size: 25px;
-    font-weight: 200;
+  font-size: 25px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 17px 15px 4px;
+  margin-left: 5px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.navLink::after {
+  content: "";
+  background-color: #b8d5f6;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 6px;
+  left: 7px;
+  transition: 0.2s;
+}
+.navLink:hover::after {
+  top: 0px;
+  left: 0px;
+}
+
+#navRight {
+  margin-left: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .navLink {
+    font-size: 13px;
+    font-weight: 100;
     letter-spacing: 1px;
-    padding: 17px 15px 4px;
-    margin-left: 5px;
-    outline: 0;
-    border: 1px solid black;
-    cursor: pointer;
-    position: relative;
-    background-color: rgba(0, 0, 0, 0);
+    padding: 8px 10px 6px;
   }
-  
-  .navLink::after {
-    content: "";
-    background-color: #b8d5f6;
-    width: 100%;
-    z-index: -1;
-    position: absolute;
-    height: 100%;
-    top: 6px;
-    left: 7px;
-    transition: 0.2s;
+}
+@media screen and (max-width: 300px) {
+  .navLink {
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 5px 3px;
+    height: 22px;
   }
-  .navLink:hover::after {
-    top: 0px;
-    left: 0px;
-  }
-
-  #navRight{
-   margin-left: auto;
-  }
-
-  @media screen and (max-width: 768px) {
-    .navLink {
-      font-size: 13px;
-      font-weight: 100;
-      letter-spacing: 1px;
-      padding: 8px 10px 6px;
-      /* margin-left: 4px; */
-
-    }
-  }
-  @media screen and (max-width: 300px) {
-    .navLink {
-      font-size: 10px;
-      /* font-weight: 100; */
-      letter-spacing: 1px;
-      padding: 4px 5px 3px;
-      /* margin-left: 4px; */
-      height: 22px;
-    }
-  }
+}

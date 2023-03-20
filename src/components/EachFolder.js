@@ -1,16 +1,16 @@
 // import logo from './assets/logo.svg';
-import { Route, Routes, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "../assets/App.css";
-import  { ImageUpload, PhotoFolders, Home, LogIn } from './index';
+import { ImageUpload } from "./index";
 
 function EachFolder() {
   const { albumName } = useParams();
 
   return (
-<div>
-    <h1>{albumName}</h1>
-<ImageUpload/>
-</div>
+    <div>
+      <h1>{albumName}</h1>
+      <ImageUpload />
+    </div>
   );
 }
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './assets/index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
-import  { AppRoutes, Navbar, PhotoFolders } from './components/index';
+import  { Navbar } from './components/index';
 import { AuthContextProvider } from './components/AuthContext';
 import App from './components/App';
 

@@ -1,10 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { auth, db } from "../firebase-config";
+import { db } from "../firebase-config";
 import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
   getDocs,
   setDoc,
 } from "firebase/firestore";
@@ -12,20 +11,13 @@ import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import {
   Typography,
-  AppBar,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
-  CssBaseline,
   Grid,
-  Toolbar,
   Container,
-  Button,
-  ButtonGroup,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 import CreateNewFolderOutlinedIcon from "@mui/icons-material/CreateNewFolderOutlined";
 import useStyles from "./style";
 
@@ -77,7 +69,6 @@ function PhotoFolders() {
     return `${obj[keys[(keys.length * Math.random()) << 0]]}`;
   };
   async function deleteFolder(albumName) {
-    // const data = doc(db, "worms", props.userId, "journal", entry.id);
     const data = doc(db, "albums", userId, "personalAlbums", albumName);
     await deleteDoc(data);
     fetchAlbums();
@@ -85,17 +76,8 @@ function PhotoFolders() {
   return (
     <div>
       <div className={classes.container}>
-        <Container maxWidth="sm"
-          className={classes.photoAlbumName}
-        >
-          {/* <Typography
-            variant="h2"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-          > */}
-            Photo Albums
-          {/* </Typography> */}
+        <Container maxWidth="sm" className={classes.photoAlbumName}>
+          Photo Albums
         </Container>
       </div>
       <div id="newFolderArea" style={{ display: "none" }}>
@@ -137,7 +119,7 @@ function PhotoFolders() {
                     <Typography variant="h5" className={classes.folderName}>
                       {card.folder}
                     </Typography>
-                  </Link> 
+                  </Link>
                 </CardContent>
               </Card>
             </Grid>
