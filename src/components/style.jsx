@@ -12,6 +12,12 @@ const useStyles = makeStyles()((theme) => {
       fontWeight: "bold",
       color: "#679df4",
     },
+    foldersQuote: {
+      fontFamily: "papyrus",
+      fontSize: "3rem",
+      fontWeight: "bold",
+      color: "#679df4",
+    },
     folderName: {
       fontFamily: "papyrus",
       fontSize: "1.5rem",

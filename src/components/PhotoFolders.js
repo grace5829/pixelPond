@@ -79,6 +79,9 @@ function PhotoFolders() {
         <Container maxWidth="sm" className={classes.photoAlbumName}>
           Photo Albums
         </Container>
+        <Typography variant="h6" gutterBottom className={classes.foldersQuote}>
+        Collect memories -Not things
+      </Typography>
       </div>
       <div id="newFolderArea" style={{ display: "none" }}>
         <button onClick={(evt) => handleNewFolder()}>Add folder</button>
