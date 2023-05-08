@@ -1,11 +1,8 @@
-// import logo from './assets/logo.svg';
 import { Route, Routes } from "react-router-dom";
 import "../assets/App.css";
-import { UserAuth } from "./AuthContext";
 import { PhotoFolders, Home, LogIn, EachFolder, EachImage } from "./index";
 
 function AppRoutes() {
-  const { user } = UserAuth();
 
   return (
     <Routes>
