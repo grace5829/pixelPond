@@ -10,7 +10,7 @@ function Home() {
         <div className="homeText">Welcome {user.displayName}!</div>
       ) : (
         <div className="homeText">
-          Log in to create your legacy, one photo at a time
+          Log in to create your legacy, one photo at a time!
         </div>
       )}
       <div className="homeText">
