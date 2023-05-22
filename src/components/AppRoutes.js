@@ -3,7 +3,6 @@ import "../assets/App.css";
 import { PhotoFolders, Home, LogIn, EachFolder, EachImage } from "./index";
 
 function AppRoutes() {
-
   return (
     <Routes>
       <Route path="/:userId/photoFolders" element={<PhotoFolders />} />
