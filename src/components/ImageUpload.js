@@ -334,30 +334,6 @@ function ImageUpload() {
                 </Card>
               </Grid>
             ))}
-            {/* <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={2}>
-          {Object.keys(imageList).map((card) => (
-            <Grid item key={card} xs={4} md={4}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image={imageList[card]}
-                  title="Image title"
-                />
-                <CardContent className={classes.CardContent}>
-                    <Typography gutterBottom variant="h5">
-                      {card}
-                    </Typography>
-                  <Typography>
-                    {" "}
-                    This is a media card. You can use to describe content
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container> */}
           </Grid>
         </Container>
       </div>
