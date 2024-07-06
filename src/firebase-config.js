@@ -3,7 +3,6 @@ import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import REACT_APP_AUTH_KEY from "./.env.local"
 
 
 const firebaseConfig = {
