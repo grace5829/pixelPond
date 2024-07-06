@@ -31,7 +31,7 @@ function PhotoFolders() {
   let nameNewFolder = { folder: newFolder };
   useEffect(() => {
     fetchAlbums();
-  }, []);
+  });
 
   const fetchAlbums = async () => {
     let albumFolders = await getDocs(albums);
@@ -42,10 +42,10 @@ function PhotoFolders() {
   };
 
   const handleNewFolder = async () => {
-    const newAlbum = await setDoc(
-      doc(db, "albums", userId, "personalAlbums", newFolder),
-      {}
-    );
+    // const newAlbum = await setDoc(
+    //   doc(db, "albums", userId, "personalAlbums", newFolder),
+    //   {}
+    // );
     setFolders((prev) => [...prev, nameNewFolder]);
     setNewFolder("");
     show("newFolderArea", "newFolder");

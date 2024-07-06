@@ -38,6 +38,7 @@ function ImageUpload() {
         setImageListBackup((prev) => ({ ...prev, [name]: datas.data()[name] }));
         setSortedImageList((prev) => [...prev, name]);
         setImageTriggerPopup((prev) => ({ ...prev, [name]: false }));
+        return datas
       });
     } catch (error) {
       console.log(error);
@@ -46,10 +47,10 @@ function ImageUpload() {
 
   useEffect(() => {
     fetchImages();
-  }, []);
+  });
   useEffect(() => {
     sort();
-  }, [fetchImages]);
+  }, [fetchImages, sort]);
 
   const sort = () => {
     unsortedKeys = sortedImageList;

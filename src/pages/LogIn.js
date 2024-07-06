@@ -14,12 +14,12 @@ function LogIn() {
     }
   };
   useEffect(() => {
-    {
+    
       if (user !== null) {
         navigate("/");
       }
-    }
-  }, [user]);
+    
+  }, [navigate]);
   return (
     <div className="login">
       <GoogleButton onClick={handleGoogleSignIn} />
