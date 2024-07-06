@@ -27,10 +27,6 @@ code {
   font-size: 2rem;
   color: #679df4;
 }
-.login {
-  display: flex;
-  justify-content: center;
-}
 
 .checkbox {
   position: absolute;
@@ -56,6 +52,9 @@ code {
 }
 #popupName {
   color: #679df4;
+}
+#addFolderButton{
+  margin: 5px;
 }
 #newFolder {
   display: block;

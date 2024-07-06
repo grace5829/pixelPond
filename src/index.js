@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './assets/index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
-import  { Navbar } from './components/index';
-import { AuthContextProvider } from './components/AuthContext';
-import App from './components/App';
+import  { Navbar } from './pages/index';
+import { AuthContextProvider } from './pages/AuthContext';
+import App from './pages/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

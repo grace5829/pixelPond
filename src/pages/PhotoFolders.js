@@ -63,11 +63,6 @@ function PhotoFolders() {
     );
   };
 
-  let randomProperty = function (obj) {
-    let keys = Object.keys(obj);
-    keys.pop();
-    return `${obj[keys[(keys.length * Math.random()) << 0]]}`;
-  };
   async function deleteFolder(albumName) {
     const data = doc(db, "albums", userId, "personalAlbums", albumName);
     await deleteDoc(data);
@@ -84,7 +79,7 @@ function PhotoFolders() {
         </Typography>
       </div>
       <div id="newFolderArea" style={{ display: "none" }}>
-        <button onClick={(evt) => handleNewFolder()}>Add folder</button>
+        <button onClick={(evt) => handleNewFolder()} id="addFolderButton">Add folder</button>
         <input
           value={newFolder}
           onChange={(e) => setNewFolder(`${e.target.value}`)}
@@ -109,18 +104,19 @@ function PhotoFolders() {
                   className={classes.cardMedia}
                   image={
                     Object.keys(card).length > 1
-                      ? randomProperty(card)
+                      ? card[Object.keys(card)[0]]
                       : "https://t3.ftcdn.net/jpg/04/84/88/76/360_F_484887682_Mx57wpHG4lKrPAG0y7Q8Q7bJ952J3TTO.jpg"
                   }
                   title="Image title"
                 />
-                <CardContent className={classes.cardTitle}>
+                <CardContent className={classes.cardTitle} id='folderName'>
                   <Link
+                  className={classes.folderNameArea}
                     key={card.folder}
                     to={`/${userId}/albums/${card.folder}`}
                   >
                     <Typography variant="h5" className={classes.folderName}>
-                      {card.folder}
+                      {card.folder} 
                     </Typography>
                   </Link>
                 </CardContent>

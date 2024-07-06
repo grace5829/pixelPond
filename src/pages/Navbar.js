@@ -25,15 +25,15 @@ function Navbar() {
           <Link to={`/${user.uid}/photoFolders`} className="navLink">
             Folders
           </Link>
-          <div id="navRight">
-            <span> {user.displayName} </span>
-            <span onClick={handleLogOut} id="logOut">
+          <div id="navRight" className="logOut">
+            <span id="username"> Welcome, {user.displayName} </span>
+            <span onClick={handleLogOut} >
               Log out
             </span>
           </div>
         </>
       ) : (
-        <Link to="/LogIn" className="navLink">
+        <Link to="/LogIn" className="logOut">
           Log In
         </Link>
       )}

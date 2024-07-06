@@ -11,6 +11,8 @@ const useStyles = makeStyles()((theme) => {
       fontSize: "3rem",
       fontWeight: "bold",
       color: "#679df4",
+      display: "flex",
+      justifyContent:"center",
     },
     foldersQuote: {
       fontFamily: "papyrus",
@@ -22,6 +24,11 @@ const useStyles = makeStyles()((theme) => {
       fontFamily: "papyrus",
       fontSize: "1.5rem",
       fontWeight: "bold",
+
+    },
+    folderNameArea:{
+      display: "flex",
+      alignItems: "center",
     },
     icon: {
       marginRight: "20px",
@@ -62,6 +69,8 @@ const useStyles = makeStyles()((theme) => {
       backgroundColor: "#b8d5f6",
       display: "flex",
       justifyContent: "center",
+      height:100,
+      border:10,
     },
   };
 });
