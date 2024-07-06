@@ -34,10 +34,11 @@ function PhotoFolders() {
     setFolders(albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id })));
   };
 
-  // eslint-disable-next-line
-    useEffect(() => {
+/* eslint-disable no-return-assign, no-param-reassign */
+useEffect(() => {
     fetchAlbums();
   }, []);
+/* eslint-disable no-return-assign, no-param-reassign */
 
 
   const handleNewFolder = async () => {
