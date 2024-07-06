@@ -6,7 +6,7 @@ import {
   doc,
   getDocs,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { v4 } from "uuid";
 import {
   Typography,
@@ -27,27 +27,25 @@ function PhotoFolders() {
   const [newFolder, setNewFolder] = useState("");
   const albums = collection(db, `albums/${userId}/personalAlbums`);
 
-  const fetchAlbums = async () => {
+  const fetchAlbums = useCallback(async () => {
     let albumFolders = await getDocs(albums);
     setFolders((prev) =>
       albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id }))
     );
+  }, [albums]);
 
-  };
   let nameNewFolder = { folder: newFolder };
   useEffect(() => {
     fetchAlbums();
-  }, [fetchAlbums]);
+  }, );
 
 
 
   const handleNewFolder = async () => {
-    // const newAlbum = await setDoc(
-    //   doc(db, "albums", userId, "personalAlbums", newFolder),
-    //   {}
-    // );
     setFolders((prev) => [...prev, nameNewFolder]);
     setNewFolder("");
+    fetchAlbums();
+
     show("newFolderArea", "newFolder");
   };
 
