@@ -1,5 +1,5 @@
 import "../assets/App.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { db, storage } from "../firebase-config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
@@ -28,7 +28,7 @@ function ImageUpload() {
   const data = doc(db, "albums", userId, "personalAlbums", albumName);
   const aRef = useRef(null);
   let unsortedKeys = [];
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     setSortedImageList([]);
     setImageList({});
     try {
@@ -38,26 +38,12 @@ function ImageUpload() {
         setImageListBackup((prev) => ({ ...prev, [name]: datas.data()[name] }));
         setSortedImageList((prev) => [...prev, name]);
         setImageTriggerPopup((prev) => ({ ...prev, [name]: false }));
-        return datas
+        return datas;
       });
     } catch (error) {
       console.log(error);
     }
-  };
-
-  useEffect(() => {
-    fetchImages();
-  });
-  useEffect(() => {
-    sort();
-  }, [fetchImages, sort]);
-
-  const sort = () => {
-    unsortedKeys = sortedImageList;
-    unsortedKeys.sort();
-    setSortedImageList(unsortedKeys);
-    setImageList(unsortedKeys);
-  };
+  }, [data]);
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
@@ -88,8 +74,21 @@ function ImageUpload() {
     aRef.current.value = null;
     show("newPhotoArea", "newPhotoImage");
   };
+  useEffect(() => {
+    fetchImages();
+  },[]);
+  useEffect(() => {
+    sort();
+  });
+
+  const sort = () => {
+    unsortedKeys = sortedImageList;
+    unsortedKeys.sort();
+    setSortedImageList(unsortedKeys);
+    setImageList(unsortedKeys);
+  };
+
   const download = async (fileName) => {
-    console.log(imageListBackup[fileName]);
     fetch(imageListBackup[fileName])
       .then((resp) => resp.blob())
       .then((blob) => {

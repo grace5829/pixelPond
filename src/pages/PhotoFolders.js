@@ -31,11 +31,10 @@ function PhotoFolders() {
   let nameNewFolder = { folder: newFolder };
   useEffect(() => {
     fetchAlbums();
-  });
+  }, [newFolder]);
 
   const fetchAlbums = async () => {
     let albumFolders = await getDocs(albums);
-    console.log(albumFolders.docs[0].data());
     setFolders((prev) =>
       albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id }))
     );
