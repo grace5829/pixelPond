@@ -5,7 +5,6 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
@@ -28,17 +27,19 @@ function PhotoFolders() {
   const [newFolder, setNewFolder] = useState("");
   const albums = collection(db, `albums/${userId}/personalAlbums`);
 
-  let nameNewFolder = { folder: newFolder };
-  useEffect(() => {
-    fetchAlbums();
-  }, [newFolder]);
-
   const fetchAlbums = async () => {
     let albumFolders = await getDocs(albums);
     setFolders((prev) =>
       albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id }))
     );
+
   };
+  let nameNewFolder = { folder: newFolder };
+  useEffect(() => {
+    fetchAlbums();
+  }, [fetchAlbums]);
+
+
 
   const handleNewFolder = async () => {
     // const newAlbum = await setDoc(

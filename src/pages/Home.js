@@ -18,11 +18,11 @@ function Home() {
         <div>
           {user ? (
             <Link to={`/${user.uid}/photoFolders`}>
-              <img className="homeImage" src={require("../images/brain.png")} alt="home-page-image-of-brain"/>
+              <img className="homeImage" src={require("../images/brain.png")} alt="Brain made out of photos"/>
             </Link>
           ) : (
             <Link to="/LogIn">
-              <img className="homeImage" src={require("../images/brain.png")} alt="home-page-image-of-brain"/>
+              <img className="homeImage" src={require("../images/brain.png")} alt="Brain made out of photos"/>
             </Link>
           )}
         </div>

@@ -19,7 +19,7 @@ function LogIn() {
         navigate("/");
       }
     
-  }, [navigate]);
+  }, [navigate, user]);
   return (
     <div className="login">
       <GoogleButton onClick={handleGoogleSignIn} />
