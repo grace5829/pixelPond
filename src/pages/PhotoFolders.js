@@ -27,20 +27,18 @@ function PhotoFolders() {
   const [folders, setFolders] = useState([]);
   const [newFolder, setNewFolder] = useState("");
   const albums = collection(db, `albums/${userId}/personalAlbums`);
-
-  const fetchAlbums = useCallback(async () => {
-    let albumFolders = await getDocs(albums);
-    setFolders((prev) =>
-      albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id }))
-    );
-  }, [newFolder]);
   let nameNewFolder = { folder: newFolder };
 
+  const fetchAlbums = async () => {
+    let albumFolders = await getDocs(albums);
+    setFolders(albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id })));
+  };
 
+  // Call fetchAlbums on component mount
   useEffect(() => {
     fetchAlbums();
-  },[]);
-
+    console.log("Running fetchAlbums on mount");
+  }, []);
 
 
   const handleNewFolder = async () => {
