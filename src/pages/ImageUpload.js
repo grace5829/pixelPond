@@ -29,8 +29,6 @@ function ImageUpload() {
   const aRef = useRef(null);
   let unsortedKeys = [];
   const fetchImages = useCallback(async () => {
-    setSortedImageList([]);
-    setImageList({});
     try {
       const datas = await getDoc(data);
       Object.keys(datas.data()).map((name) => {
@@ -75,11 +73,13 @@ function ImageUpload() {
     show("newPhotoArea", "newPhotoImage");
   };
   useEffect(() => {
-    fetchImages();
-  },);
+    return () => {
+      fetchImages();
+    };
+  },[]);
   useEffect(() => {
     sort();
-  });
+  },[imageList]);
 
   const sort = () => {
     unsortedKeys = sortedImageList;
