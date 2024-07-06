@@ -28,7 +28,7 @@ function ImageUpload() {
   const data = doc(db, "albums", userId, "personalAlbums", albumName);
   const aRef = useRef(null);
   let unsortedKeys = [];
-  const fetchImages = useCallback(async () => {
+  const fetchImages = async () => {
     try {
       const datas = await getDoc(data);
       Object.keys(datas.data()).map((name) => {
@@ -41,7 +41,7 @@ function ImageUpload() {
     } catch (error) {
       console.log(error);
     }
-  }, [data]);
+  }
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
@@ -72,21 +72,21 @@ function ImageUpload() {
     aRef.current.value = null;
     show("newPhotoArea", "newPhotoImage");
   };
-  useEffect(() => {
-    return () => {
-      fetchImages();
-    };
-  },[]);
-  useEffect(() => {
-    sort();
-  },[imageList]);
-
   const sort = () => {
     unsortedKeys = sortedImageList;
     unsortedKeys.sort();
     setSortedImageList(unsortedKeys);
     setImageList(unsortedKeys);
-  };
+  }
+  // eslint-disable-next-line
+  useEffect(() => {
+      fetchImages();
+  },[]);
+  // eslint-disable-next-line
+  useEffect(() => {
+    sort();
+  },[]);
+
 
   const download = async (fileName) => {
     fetch(imageListBackup[fileName])

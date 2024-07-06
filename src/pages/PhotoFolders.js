@@ -7,7 +7,7 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import {
   Typography,
@@ -34,10 +34,9 @@ function PhotoFolders() {
     setFolders(albumFolders.docs.map((doc) => ({ ...doc.data(), folder: doc.id })));
   };
 
-  // Call fetchAlbums on component mount
-  useEffect(() => {
+  // eslint-disable-next-line
+    useEffect(() => {
     fetchAlbums();
-    console.log("Running fetchAlbums on mount");
   }, []);
 
 
