@@ -76,7 +76,7 @@ function ImageUpload() {
   };
   useEffect(() => {
     fetchImages();
-  },[]);
+  },);
   useEffect(() => {
     sort();
   });
