@@ -16,7 +16,7 @@ function Navbar() {
   };
   return (
     <nav id="topNav">
-      <img className="logo" src={require("../images/camera.png")} />
+      <img className="logo" src={require("../images/camera.png")} alt="icon-of-camera"/>
       <Link to="/" className="navLink">
         Home
       </Link>
