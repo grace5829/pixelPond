@@ -78,14 +78,14 @@ function ImageUpload() {
     setSortedImageList(unsortedKeys);
     setImageList(unsortedKeys);
   }
-/* eslint-disable no-return-assign, no-param-reassign */
+/* eslint-disable */
 useEffect(() => {
       fetchImages();
   },[]);
   useEffect(() => {
     sort();
   },[]);
-/* eslint-enable no-return-assign, no-param-reassign */
+/* eslint-enable */
 
 
   const download = async (fileName) => {
