@@ -38,7 +38,7 @@ function PhotoFolders() {
 useEffect(() => {
     fetchAlbums();
   }, []);
-/* eslint-disable no-return-assign, no-param-reassign */
+/* eslint-enable no-return-assign, no-param-reassign */
 
 
   const handleNewFolder = async () => {

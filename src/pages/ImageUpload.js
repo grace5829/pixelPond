@@ -85,7 +85,7 @@ useEffect(() => {
   useEffect(() => {
     sort();
   },[]);
-/* eslint-disable no-return-assign, no-param-reassign */
+/* eslint-enable no-return-assign, no-param-reassign */
 
 
   const download = async (fileName) => {
