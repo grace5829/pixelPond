@@ -41,7 +41,7 @@ function ImageUpload() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   const handleUpload = (e) => {
     if (uploadImages == null) return;
     let obj = {};
@@ -77,16 +77,15 @@ function ImageUpload() {
     unsortedKeys.sort();
     setSortedImageList(unsortedKeys);
     setImageList(unsortedKeys);
-  }
-/* eslint-disable */
-useEffect(() => {
-      fetchImages();
-  },[]);
+  };
+  /* eslint-disable */
+  useEffect(() => {
+    fetchImages();
+  }, []);
   useEffect(() => {
     sort();
-  },[]);
-/* eslint-enable */
-
+  }, []);
+  /* eslint-enable */
 
   const download = async (fileName) => {
     fetch(imageListBackup[fileName])
@@ -195,13 +194,23 @@ useEffect(() => {
   const show = (hiddenEle, shownEle) => {
     const x = document.getElementById(`${hiddenEle}`);
     const y = document.getElementById(`${shownEle}`);
-    (x.style.display === "none"
-      ? (x.style.display = "block")
-      : (x.style.display = "none"))(
-      y.style.display === "none"
-        ? (y.style.display = "block")
-        : (y.style.display = "none")
-    );
+    console.log(`Toggling elements: ${hiddenEle}, ${shownEle}`);  // Logging
+
+    if (x.classList.contains("hidden")) {
+      x.classList.remove("hidden");
+      x.classList.add("visible");
+    } else {
+      x.classList.remove("visible");
+      x.classList.add("hidden");
+    }
+
+    if (y.classList.contains("hidden")) {
+      y.classList.remove("hidden");
+      y.classList.add("visible");
+    } else {
+      y.classList.remove("visible");
+      y.classList.add("hidden");
+    }
   };
   async function deleteImage(entry) {
     const folderRef = doc(db, "albums", userId, "personalAlbums", albumName);
@@ -252,9 +261,10 @@ useEffect(() => {
         <AddAPhotoIcon
           fontSize="large"
           id="newPhotoImage"
+          className="visible"
           onClick={() => show("newPhotoArea", "newPhotoImage")}
         />
-        <div id="newPhotoArea" style={{ display: "none" }}>
+        <div id="newPhotoArea" className="hidden" >
           <input
             type="file"
             multiple

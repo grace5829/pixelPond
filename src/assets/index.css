@@ -27,7 +27,13 @@ code {
   font-size: 2rem;
   color: #679df4;
 }
+.hidden {
+  display: none;
+}
 
+.visible {
+  display: block;
+}
 .checkbox {
   position: absolute;
 }
