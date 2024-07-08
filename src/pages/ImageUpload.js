@@ -194,7 +194,6 @@ function ImageUpload() {
   const show = (hiddenEle, shownEle) => {
     const x = document.getElementById(`${hiddenEle}`);
     const y = document.getElementById(`${shownEle}`);
-    console.log(`Toggling elements: ${hiddenEle}, ${shownEle}`);  // Logging
 
     if (x.classList.contains("hidden")) {
       x.classList.remove("hidden");

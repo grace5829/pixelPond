@@ -42,24 +42,35 @@ useEffect(() => {
 
 
   const handleNewFolder = async () => {
-    await setDoc(
-      doc(db, "albums", userId, "personalAlbums", newFolder),
-    );
-    setFolders((prev) => [...prev, nameNewFolder]);
-    setNewFolder("");
-    show("newFolderArea", "newFolder");
+   try {
+      await setDoc(doc(db, "albums", userId, "personalAlbums", newFolder), nameNewFolder);
+      setFolders((prev) => [...prev, nameNewFolder]);
+      setNewFolder("");
+      show("newFolderArea", "newFolder");
+    } catch (error) {
+      console.error("Error creating new folder:", error);
+    }
   };
 
   const show = (hiddenEle, shownEle) => {
     const x = document.getElementById(`${hiddenEle}`);
     const y = document.getElementById(`${shownEle}`);
-    (x.style.display === "none"
-      ? (x.style.display = "block")
-      : (x.style.display = "none"))(
-      y.style.display === "none"
-        ? (y.style.display = "block")
-        : (y.style.display = "none")
-    );
+
+    if (x.classList.contains("hidden")) {
+      x.classList.remove("hidden");
+      x.classList.add("visible");
+    } else {
+      x.classList.remove("visible");
+      x.classList.add("hidden");
+    }
+
+    if (y.classList.contains("hidden")) {
+      y.classList.remove("hidden");
+      y.classList.add("visible");
+    } else {
+      y.classList.remove("visible");
+      y.classList.add("hidden");
+    }
   };
 
   async function deleteFolder(albumName) {
@@ -77,18 +88,20 @@ useEffect(() => {
           Collect memories -Not things
         </Typography>
       </div>
-      <div id="newFolderArea" style={{ display: "none" }}>
+      <CreateNewFolderOutlinedIcon
+        fontSize="large"
+        id="newFolder"
+        onClick={() => show("newFolderArea", "newFolder")}
+        className="visible"
+      />
+      <div id="newFolderArea"  className="hidden">
         <button onClick={(evt) => handleNewFolder()} id="addFolderButton">Add folder</button>
         <input
           value={newFolder}
           onChange={(e) => setNewFolder(`${e.target.value}`)}
         />
       </div>
-      <CreateNewFolderOutlinedIcon
-        fontSize="large"
-        id="newFolder"
-        onClick={() => show("newFolderArea", "newFolder")}
-      />
+     
       <div className="folderArea"></div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
